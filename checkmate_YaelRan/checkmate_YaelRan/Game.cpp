@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game(std::string board) : _side(SIDE_SIZE), _playsTurn(false)
+Game::Game(std::string board) : _side(SIDE_SIZE), _playsTurn(true)
 {
 	Piece* ptr = nullptr;
 	int i = 0;
@@ -9,7 +9,7 @@ Game::Game(std::string board) : _side(SIDE_SIZE), _playsTurn(false)
 	{
 		if (board[i] == '#')
 		{
-			//ptr = new NullPiece("#"); //null piece
+			//ptr = new NullPiece(); //null piece
 			*(this->_pieces + i) = ptr;
 		}
 		if (board[i] == 'p')
@@ -87,7 +87,7 @@ void Game::TryMove(int x1, int y1, int x2, int y2)
 	Piece* piececToSwap = this->_pieces[x2, y2];
 	Piece* temp = piececToMove;
 	int rCode = 0;
-	if (piececToMove->IsMoveLegal(x1, y1, x2, y2, this->_pieces))
+	if (piececToMove->IsMoveLegal(x1, y1, x2, y2, this->_pieces, rCode, this->_playsTurn))
 	{
 		piececToMove = piececToSwap;
 		piececToSwap = temp;

@@ -1,5 +1,7 @@
 #pragma once
 #include "Piece.h"
+#include "Rook.h"
+#include "NullPiece.h"
 #include <iostream>
 #include <string>
 
@@ -16,6 +18,6 @@ public:
 
 private:
 	unsigned int _side;
-	bool _playsTurn; //white -> false | black -> true 
+	bool _playsTurn; //black -> false |  white -> true 
 	Piece** _pieces;
 };
