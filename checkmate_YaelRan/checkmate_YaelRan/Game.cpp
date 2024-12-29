@@ -9,7 +9,7 @@ Game::Game(std::string board) : _side(SIDE_SIZE), _playsTurn(false)
 	{
 		if (board[i] == '#')
 		{
-			//ptr = new NullPiece("null"); //null piece
+			//ptr = new NullPiece("#"); //null piece
 			*(this->_pieces + i) = ptr;
 		}
 		if (board[i] == 'p')
@@ -79,4 +79,32 @@ Game::~Game()
 	{
 		delete[] this->_pieces;
 	}
+}
+
+void Game::TryMove(int x1, int y1, int x2, int y2)
+{
+	Piece* piececToMove = this->_pieces[x1, y1];
+	Piece* piececToSwap = this->_pieces[x2, y2];
+	Piece* temp = piececToMove;
+	int rCode = 0;
+	if (piececToMove->IsMoveLegal(x1, y1, x2, y2, this->_pieces))
+	{
+		piececToMove = piececToSwap;
+		piececToSwap = temp;
+	}
+}
+
+std::string Game::boardState() const
+{
+	string rStr = "";
+	int i = 0, j = 0;
+	for (i = 0; i < SIDE_SIZE; i++)
+	{
+		for (j = 0; j < SIDE_SIZE; i++)
+		{
+			rStr += this->_pieces[i, j]->GetName() + " ";
+		}
+		rStr += "\n";
+	}
+	return ;
 }
