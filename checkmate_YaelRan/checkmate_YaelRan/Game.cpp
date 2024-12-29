@@ -106,5 +106,5 @@ std::string Game::boardState() const
 		}
 		rStr += "\n";
 	}
-	return ;
+	return rStr;
 }
