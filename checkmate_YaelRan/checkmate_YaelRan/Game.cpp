@@ -1,0 +1,82 @@
+#include "Game.h"
+
+Game::Game(std::string board) : _side(SIDE_SIZE), _playsTurn(false)
+{
+	Piece* ptr = nullptr;
+	int i = 0;
+	this->_pieces = new Piece * [SIDE_SIZE * SIDE_SIZE];
+	for (i = 0; i < SIDE_SIZE * SIDE_SIZE; i++)
+	{
+		if (board[i] == '#')
+		{
+			//ptr = new NullPiece("null"); //null piece
+			*(this->_pieces + i) = ptr;
+		}
+		if (board[i] == 'p')
+		{
+			//ptr = new Pawn("P"); //white pawm
+			*(this->_pieces + i) = ptr;
+		}
+		if (board[i] == 'P')
+		{
+			//ptr = new Pawn("P"); //black pawm
+			*(this->_pieces + i) = ptr;
+		}
+		if (board[i] == 'k')
+		{
+			//ptr = new Knight("k"); //white Knight
+			*(this->_pieces + i) = ptr;
+		}
+		if (board[i] == 'K')
+		{
+			//ptr = new Knight("K"); //black Knight
+			*(this->_pieces + i) = ptr;
+		}
+		if (board[i] == 'b')
+		{
+			//ptr = new Bishop("b"); //white Bishop
+			*(this->_pieces + i) = ptr;
+		}
+		if (board[i] == 'B')
+		{
+			//ptr = new Bishop("B"); //black Bishop
+			*(this->_pieces + i) = ptr;
+		}
+		if (board[i] == 'q')
+		{
+			//ptr = new Queen("q"); //white Queen
+			*(this->_pieces + i) = ptr;
+		}
+		if (board[i] == 'Q')
+		{
+			//ptr = new Queen("Q"); //black Queen
+			*(this->_pieces + i) = ptr;
+		}
+		if (board[i] == 'k')
+		{
+			//ptr = new King("k"); //white King
+			*(this->_pieces + i) = ptr;
+		}
+		if (board[i] == 'K')
+		{
+			//ptr = new King("K"); //black King
+			*(this->_pieces + i) = ptr;
+		}
+	}
+}
+
+Game::~Game()
+{
+	int i = 0;
+	for (i = 0; i < SIDE_SIZE * SIDE_SIZE; i++)
+	{
+		if (*(this->_pieces + i) != nullptr)
+		{
+			delete *(this->_pieces + i);
+		}
+	}
+	if (this->_pieces != nullptr)
+	{
+		delete[] this->_pieces;
+	}
+}
