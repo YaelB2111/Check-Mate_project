@@ -10,6 +10,11 @@ Piece::~Piece()
 	this->_name = "";
 }
 
+string Piece::GetName() const
+{
+	return this->_name;
+}
+
 void Piece::MovePlace(int destX, int destY, int srcX, int srcY, Piece* board[])
 {
 	if (board[destX][destY]._name != "")
@@ -23,11 +28,11 @@ void Piece::MovePlace(int destX, int destY, int srcX, int srcY, Piece* board[])
 	}
 }
 
-bool Piece::IsSelfCheck(int srcX, int srcY, Piece* board[], bool whitePlays)
+bool Piece::IsSelfCheck(const int srcX, const int srcY, const Piece* board[], const bool whitePlays)
 {
 	int kingX = 0, kingY = 0;
 
-	int i = 0, rows = sizeof(board) / sizeof(board[0]), j = 0 , cols = sizeof(board[0]) / sizeof(board[0][0]);
+	int i = 0, rows = sizeof(board) / sizeof(board[0]), j = 0 , cols = sizeof(board[0]) / sizeof(board[0][0]), result = 0;
 	bool selfCheck = false;
 	string lettterToFind = "K";
 
@@ -51,7 +56,7 @@ bool Piece::IsSelfCheck(int srcX, int srcY, Piece* board[], bool whitePlays)
 	{
 		for (j = 0; j < cols && !selfCheck; j++)
 		{
-			if (IsMoveLegal(j, i, kingX, kingY, board) == true)
+			if (IsMoveLegal(j, i, kingX, kingY, board, result, whitePlays) == true)
 			{
 				selfCheck = true;
 			}
