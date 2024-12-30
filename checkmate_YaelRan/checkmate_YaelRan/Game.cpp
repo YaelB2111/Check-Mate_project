@@ -22,12 +22,12 @@ Game::Game(std::string board) : _side(SIDE_SIZE), _playsTurn(true)
 			//ptr = new Pawn("P"); //black pawm
 			*(this->_pieces + i) = ptr;
 		}
-		if (board[i] == 'k')
+		if (board[i] == 'n')
 		{
 			//ptr = new Knight("k"); //white Knight
 			*(this->_pieces + i) = ptr;
 		}
-		if (board[i] == 'K')
+		if (board[i] == 'N')
 		{
 			//ptr = new Knight("K"); //black Knight
 			*(this->_pieces + i) = ptr;
@@ -107,4 +107,35 @@ std::string Game::boardState() const
 		rStr += "\n";
 	}
 	return rStr;
+}
+
+bool Game::isCheck()
+{
+	string checkedKing = !this->_playsTurn ? "K" : "k", knight = this->_playsTurn ? "N" : "n",
+	queen = this->_playsTurn ? "Q" : "q", rook = this->_playsTurn ? "R" : "r", bishop = this->_playsTurn ? "B" : "b",
+	pawn = this->_playsTurn ? "P" : "p"; //change the true/false upper/lower to match the turn if needed
+	
+	int i = 0, j = 0, kingX = 0, kingY = 0, xCpy = kingX, yCpy = kingY;
+	
+	LogicalClac::findKingCordinates(kingX, kingY, checkedKing, this->_pieces); //find the cordinates of the prefered king
+	
+	//pawn check (check 2 possible check positions, and make sure no index out of range occures)
+	if (LogicalClac::isPawnCheck(kingX, kingY, this->_playsTurn, this->_pieces)) 
+	{
+		return true;
+	}
+
+	//knightCheck - checks all the 8 possible knight check positions, (and make sure no index out of range occures) 
+	if (LogicalClac::isKnightnCheck(kingX, kingY, knight, this->_pieces))
+	{
+		return true;
+	}
+	
+	//knightCheck - checks all the 8 possible stright/diagnle check positions, (and make sure no index out of range occures) 
+	if (LogicalClac::isStrightDiagnleCheck(kingX, kingY, queen, rook, bishop, this->_pieces))
+	{
+		return true;
+	}
+
+	return false;
 }

@@ -2,10 +2,11 @@
 #include "Piece.h"
 #include "Rook.h"
 #include "NullPiece.h"
+#include "LogicalClacUtils.h"
 #include <iostream>
 #include <string>
 
-#define SIDE_SIZE 8
+
 class Game
 {
 public:
