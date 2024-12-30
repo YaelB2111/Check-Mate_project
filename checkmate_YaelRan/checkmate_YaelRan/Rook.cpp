@@ -106,7 +106,7 @@ bool IsLegalForward(const int destY, const int srcX, const int srcY, const Piece
 
 	for (i = srcY; i < destY && !legal; i++)
 	{
-		if (board[srcX][i].GetName() != ' ')
+		if (board[srcX][i].GetName() != '#')
 		{
 			legal = false;
 		}
@@ -119,7 +119,7 @@ bool IsLegalForward(const int destY, const int srcX, const int srcY, const Piece
 	
 	for (i = srcY; i > destY && !legal; i--)
 	{
-		if (board[srcX][i].GetName() != ' ')
+		if (board[srcX][i].GetName() != '#')
 		{
 			legal = false;
 		}
@@ -134,7 +134,7 @@ bool IsLegalRight(const int destX, const int srcX, const int srcY, const Piece**
 
 	for (i = srcX; i < destX && !legal; i++)
 	{
-		if (board[i][srcY].GetName() != ' ')
+		if (board[i][srcY].GetName() != '#')
 		{
 			legal = false;
 		}
@@ -148,7 +148,7 @@ bool IsLegalLeft(const int destX, const int srcX, const int srcY, const Piece** 
 
 	for (i = srcX; i > destX && !legal; i--)
 	{
-		if (board[i][srcY].GetName() != ' ')
+		if (board[i][srcY].GetName() != '#')
 		{
 			legal = false;
 		}
