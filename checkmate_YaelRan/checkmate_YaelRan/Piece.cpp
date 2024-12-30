@@ -17,7 +17,7 @@ char Piece::GetName() const
 
 void Piece::MovePlace(int destX, int destY, int srcX, int srcY, Piece* board[])
 {
-	if (board[destX][destY]._name != ' ')
+	if (board[destX][destY].GetName() != ' ')
 	{
 		Eat(destX, destY, srcX, srcY, board);
 	}
@@ -35,11 +35,12 @@ bool Piece::IsSelfCheck(const int srcX, const int srcY, const Piece* board[], co
 	int i = 0, rows = sizeof(board) / sizeof(board[0]), j = 0 , cols = sizeof(board[0]) / sizeof(board[0][0]), result = 0;
 	bool selfCheck = false;
 	char lettterToFind = 'K';
-
+	
 	if (whitePlays)
 	{
 		lettterToFind = 'k'; // to lower
 	}
+
 	for (i = 0; i < rows; i++)
 	{
 		for (j = 0; j < cols; j++)

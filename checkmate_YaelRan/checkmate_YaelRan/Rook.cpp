@@ -95,6 +95,7 @@ bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 		return legal;
 	}
 
+
 	result = VALID_MOVE;
 	return legal;
 }
