@@ -99,7 +99,7 @@ bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 	result = VALID_MOVE;
 	return legal;
 }
-bool IsLegalForward(const int destY, const int srcX, const int srcY, const Piece* board[])
+bool Rook::IsLegalForward(const int destY, const int srcX, const int srcY, const Piece* board[])
 {
 	int i = 0;
 	bool legal = true;
@@ -112,7 +112,8 @@ bool IsLegalForward(const int destY, const int srcX, const int srcY, const Piece
 		}
 	}
 	return legal;
-}bool IsLegalBackward(const int destY, const int srcX, const int srcY, const Piece** board)
+}
+bool Rook::IsLegalBackward(const int destY, const int srcX, const int srcY, const Piece** board)
 {
 	int i = 0;
 	bool legal = true;
@@ -127,7 +128,7 @@ bool IsLegalForward(const int destY, const int srcX, const int srcY, const Piece
 	return legal;
 }
 
-bool IsLegalRight(const int destX, const int srcX, const int srcY, const Piece** board)
+bool Rook::IsLegalRight(const int destX, const int srcX, const int srcY, const Piece** board)
 {
 	int i = 0;
 	bool legal = true;
@@ -141,7 +142,7 @@ bool IsLegalRight(const int destX, const int srcX, const int srcY, const Piece**
 	}
 	return legal;
 }
-bool IsLegalLeft(const int destX, const int srcX, const int srcY, const Piece** board)
+bool Rook::IsLegalLeft(const int destX, const int srcX, const int srcY, const Piece** board)
 {
 	int i = 0;
 	bool legal = true;

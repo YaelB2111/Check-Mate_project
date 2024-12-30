@@ -6,66 +6,76 @@ Game::Game(std::string board) : _side(SIDE_SIZE), _playsTurn(true)
 	int i = 0;
 	this->_pieces = new Piece * [SIDE_SIZE * SIDE_SIZE];
 	for (i = 0; i < SIDE_SIZE * SIDE_SIZE; i++)
-	{
-		if (board[i] == '#')
-		{
-			//ptr = new NullPiece(); //null piece
-			*(this->_pieces + i) = ptr;
-		}
-		if (board[i] == 'p')
-		{
-			//ptr = new Pawn("P"); //white pawm
-			*(this->_pieces + i) = ptr;
-		}
-		if (board[i] == 'P')
-		{
-			//ptr = new Pawn("P"); //black pawm
-			*(this->_pieces + i) = ptr;
-		}
-		if (board[i] == 'n')
-		{
-			//ptr = new Knight("k"); //white Knight
-			*(this->_pieces + i) = ptr;
-		}
-		if (board[i] == 'N')
-		{
-			//ptr = new Knight("K"); //black Knight
-			*(this->_pieces + i) = ptr;
-		}
-		if (board[i] == 'b')
-		{
-			//ptr = new Bishop("b"); //white Bishop
-			*(this->_pieces + i) = ptr;
-		}
-		if (board[i] == 'B')
-		{
-			//ptr = new Bishop("B"); //black Bishop
-			*(this->_pieces + i) = ptr;
-		}
-		if (board[i] == 'q')
-		{
-			//ptr = new Queen("q"); //white Queen
-			*(this->_pieces + i) = ptr;
-		}
-		if (board[i] == 'Q')
-		{
-			//ptr = new Queen("Q"); //black Queen
-			*(this->_pieces + i) = ptr;
-		}
-		if (board[i] == 'k')
-		{
-			//ptr = new King("k"); //white King
-			*(this->_pieces + i) = ptr;
-		}
-		if (board[i] == 'K')
-		{
-			//ptr = new King("K"); //black King
-			*(this->_pieces + i) = ptr;
-		}
-	}
+    {
+        if (board[i] == '#')
+        {
+            ptr = new NullPiece(); // null piece
+            *(this->_pieces + i) = ptr;
+        }
+        if (board[i] == 'p')
+        {
+            // ptr = new Pawn('p'); // white pawn
+            *(this->_pieces + i) = ptr;
+        }
+        if (board[i] == 'P')
+        {
+            // ptr = new Pawn('P'); // black pawn
+            *(this->_pieces + i) = ptr;
+        }
+        if (board[i] == 'n')
+        {
+            // ptr = new Knight('n'); // white Knight
+            *(this->_pieces + i) = ptr;
+        }
+        if (board[i] == 'N')
+        {
+            // ptr = new Knight('N'); // black Knight
+            *(this->_pieces + i) = ptr;
+        }
+        if (board[i] == 'b')
+        {
+            // ptr = new Bishop('b'); // white Bishop
+            *(this->_pieces + i) = ptr;
+        }
+        if (board[i] == 'B')
+        {
+            // ptr = new Bishop('B'); // black Bishop
+            *(this->_pieces + i) = ptr;
+        }
+        if (board[i] == 'r')
+        {
+            ptr = new Rook('r'); // white Rook
+            *(this->_pieces + i) = ptr;
+        }
+        if (board[i] == 'R')
+        {
+            ptr = new Rook('R'); // black Rook
+            *(this->_pieces + i) = ptr;
+        }
+        if (board[i] == 'q')
+        {
+            // ptr = new Queen('q'); // white Queen
+            *(this->_pieces + i) = ptr;
+        }
+        if (board[i] == 'Q')
+        {
+            // ptr = new Queen('Q'); // black Queen
+            *(this->_pieces + i) = ptr;
+        }
+        if (board[i] == 'k')
+        {
+            // ptr = new King('k'); // white King
+            *(this->_pieces + i) = ptr;
+        }
+        if (board[i] == 'K')
+        {
+            // ptr = new King('K'); // black King
+            *(this->_pieces + i) = ptr;
+        }
+    }
 }
 
-Game::~Game()
+Game::~Game() //fix
 {
 	int i = 0;
 	for (i = 0; i < SIDE_SIZE * SIDE_SIZE; i++)
@@ -87,7 +97,7 @@ void Game::TryMove(int x1, int y1, int x2, int y2)
 	Piece* piececToSwap = this->_pieces[x2, y2];
 	Piece* temp = piececToMove;
 	int rCode = 0;
-	if (piececToMove->IsMoveLegal(x1, y1, x2, y2, this->_pieces, rCode, this->_playsTurn))
+	if (piececToMove->IsMoveLegal(x1, y1, x2, y2, (const Piece**)this->_pieces, rCode, this->_playsTurn))
 	{
 		piececToMove = piececToSwap;
 		piececToSwap = temp;
@@ -111,9 +121,8 @@ std::string Game::boardState() const
 
 bool Game::isCheck()
 {
-	string checkedKing = !this->_playsTurn ? "K" : "k", knight = this->_playsTurn ? "N" : "n",
-	queen = this->_playsTurn ? "Q" : "q", rook = this->_playsTurn ? "R" : "r", bishop = this->_playsTurn ? "B" : "b",
-	pawn = this->_playsTurn ? "P" : "p"; //change the true/false upper/lower to match the turn if needed
+	char checkedKing = !this->_playsTurn ? 'K' : 'k', knight = this->_playsTurn ? 'N' : 'n', queen = this->_playsTurn ? 'Q' : 'q', 
+	rook = this->_playsTurn ? 'R' : 'r', bishop = this->_playsTurn ? 'B' : 'b', pawn = this->_playsTurn ? 'P' : 'p'; //change the true/false upper/lower to match the turn if needed
 	
 	int i = 0, j = 0, kingX = 0, kingY = 0, xCpy = kingX, yCpy = kingY;
 	
