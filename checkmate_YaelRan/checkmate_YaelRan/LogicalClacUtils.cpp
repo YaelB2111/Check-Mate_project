@@ -138,3 +138,11 @@ bool LogicalClac::isStrightDiagnleCheck(const int kingX, const int kingY, const 
 	}
 	return false;
 }
+
+void LogicalClac::convertMsgToCordinates(string msg, int& srcX, int& srcY, int& dstX, int& dstY)
+{
+	srcX = int(msg[0])-'a';
+	srcY = int(msg[1]) - '0';
+	dstX = int(msg[2]) - 'a';
+	dstY = int(msg[4]) - '0';
+}
