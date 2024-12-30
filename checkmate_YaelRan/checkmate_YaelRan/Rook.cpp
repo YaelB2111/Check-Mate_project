@@ -1,6 +1,6 @@
 #include "Rook.h"
 
-Rook::Rook(string name) : Piece(name)
+Rook::Rook(char name) : Piece(name)
 {
 }
 
@@ -10,13 +10,13 @@ Rook::~Rook()
 
 bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece* board[], int& result, bool whitePlays)
 {
-	string name = "R";
+	char name = 'R';
 	bool legal = false;
 	int boardSize = sizeof(board) / sizeof(board[0]);
 
 	if (whitePlays)
 	{
-		name = toupper(name[0]);
+		name = toupper(name);
 	}
 	if (name != board[srcX][srcY].GetName())
 	{
@@ -24,13 +24,13 @@ bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 		return legal;
 	}
 
-	if (whitePlays && board[destX][destY].GetName()[0] == tolower(board[destX][destY].GetName()[0]))
+	if (whitePlays && board[destX][destY].GetName() == tolower(board[destX][destY].GetName()))
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	else if (!whitePlays && board[destX][destY].GetName()[0] == toupper(board[destX][destY].GetName()[0]))
+	else if (!whitePlays && board[destX][destY].GetName() == toupper(board[destX][destY].GetName()))
 	{
 		result = PIECE_DST;
 		return legal;
@@ -105,7 +105,7 @@ bool IsLegalForward(const int destY, const int srcX, const int srcY, const Piece
 
 	for (i = srcY; i < destY && !legal; i++)
 	{
-		if (board[srcX][i].GetName() != "")
+		if (board[srcX][i].GetName() != ' ')
 		{
 			legal = false;
 		}
@@ -118,7 +118,7 @@ bool IsLegalForward(const int destY, const int srcX, const int srcY, const Piece
 	
 	for (i = srcY; i > destY && !legal; i--)
 	{
-		if (board[srcX][i].GetName() != "")
+		if (board[srcX][i].GetName() != ' ')
 		{
 			legal = false;
 		}
@@ -133,7 +133,7 @@ bool IsLegalRight(const int destX, const int srcX, const int srcY, const Piece**
 
 	for (i = srcX; i < destX && !legal; i++)
 	{
-		if (board[i][srcY].GetName() != "")
+		if (board[i][srcY].GetName() != ' ')
 		{
 			legal = false;
 		}
@@ -147,7 +147,7 @@ bool IsLegalLeft(const int destX, const int srcX, const int srcY, const Piece** 
 
 	for (i = srcX; i > destX && !legal; i--)
 	{
-		if (board[i][srcY].GetName() != "")
+		if (board[i][srcY].GetName() != ' ')
 		{
 			legal = false;
 		}

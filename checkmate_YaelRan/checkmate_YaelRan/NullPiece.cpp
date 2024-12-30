@@ -4,6 +4,6 @@ NullPiece::~NullPiece()
 {
 }
 
-NullPiece::NullPiece() : Piece("")
+NullPiece::NullPiece() : Piece(' ')
 {
 }

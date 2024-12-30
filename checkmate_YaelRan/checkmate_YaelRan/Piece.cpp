@@ -1,29 +1,29 @@
 #include "Piece.h"
 
-Piece::Piece(string name)
+Piece::Piece(char name)
 {
 	this->_name = name;
 }
 
 Piece::~Piece()
 {
-	this->_name = "";
+	this->_name = ' ';
 }
 
-string Piece::GetName() const
+char Piece::GetName() const
 {
 	return this->_name;
 }
 
 void Piece::MovePlace(int destX, int destY, int srcX, int srcY, Piece* board[])
 {
-	if (board[destX][destY]._name != "")
+	if (board[destX][destY]._name != ' ')
 	{
 		Eat(destX, destY, srcX, srcY, board);
 	}
 	else
 	{
-		board[srcX][srcY]._name = "";
+		board[srcX][srcY]._name = ' ';
 		// add null piece
 	}
 }
@@ -34,11 +34,11 @@ bool Piece::IsSelfCheck(const int srcX, const int srcY, const Piece* board[], co
 
 	int i = 0, rows = sizeof(board) / sizeof(board[0]), j = 0 , cols = sizeof(board[0]) / sizeof(board[0][0]), result = 0;
 	bool selfCheck = false;
-	string lettterToFind = "K";
+	char lettterToFind = 'K';
 
 	if (whitePlays)
 	{
-		lettterToFind = "k"; // to lower
+		lettterToFind = 'k'; // to lower
 	}
 	for (i = 0; i < rows; i++)
 	{
@@ -68,7 +68,7 @@ bool Piece::IsSelfCheck(const int srcX, const int srcY, const Piece* board[], co
 void Piece::Eat(int destX, int destY, int srcX, int srcY, Piece* board[])
 {
 	board[destX][destY] = board[srcX][srcY];
-	board[srcX][srcY]._name = "";
+	board[srcX][srcY]._name = ' ';
 	// add null piece
 }
 
