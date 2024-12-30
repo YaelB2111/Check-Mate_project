@@ -54,7 +54,7 @@ bool King::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 		return legal;
 	}
 
-	if (abs(destX - srcX > 1) || abs(destY - srcY) > 1)
+	if (abs(destX - srcX)> 1 || abs(destY - srcY) > 1)
 	{
 		result = INVALID_MOVE;
 		return legal;
