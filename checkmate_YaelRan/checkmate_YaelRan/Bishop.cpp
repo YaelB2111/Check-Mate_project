@@ -10,64 +10,64 @@ Bishop::~Bishop()
 
 bool Bishop::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece* board[], int& result, bool whitePlays)
 {
-	char name = 'R';
+	char name = 'r';
 	bool legal = false;
 	int boardSize = sizeof(board) / sizeof(board[0]);
 
 	if (whitePlays)
 	{
-		name = toupper(name);
+		name = toupper(name); // white is caps (R)
 	}
-	if (name != board[srcX][srcY].GetName())
+	if (name != board[srcX][srcY].GetName()) // player with with a piece thats not his
 	{
 		result = NO_PIECE_SRC;
 		return legal;
 	}
 
-	if (whitePlays && board[destX][destY].GetName() == tolower(board[destX][destY].GetName()))
+	if (whitePlays && board[destX][destY].GetName() == toupper(board[destX][destY].GetName())) // for white, dest piece is also white
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	else if (!whitePlays && board[destX][destY].GetName() == toupper(board[destX][destY].GetName()))
+	else if (!whitePlays && board[destX][destY].GetName() == toupper(board[destX][destY].GetName()))// for black, dest piece is also black
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	if (IsSelfCheck(srcX, srcY, board, whitePlays))
+	if (IsSelfCheck(srcX, srcY, board, whitePlays)) // self check
 	{
 		result = SELF_CHECK;
 		return legal;
 	}
 
-	if (destX >= boardSize || srcX >= boardSize || destY >= boardSize || srcY >= boardSize)
+	if (destX >= boardSize || srcX >= boardSize || destY >= boardSize || srcY >= boardSize) // dest out of board
 	{
 		result = OUT_OF_BOUND;
 		return legal;
 	}
 
-	if (destX != srcX && destY != srcY)
+	if (abs(destX - srcX) != abs(destY - srcY)) // slant should have same x and y change
 	{
 		result = INVALID_MOVE;
 		return legal;
 	}
 
 
-	if (srcY > destY && srcX > destX)
+	if (srcY > destY && srcX > destX) // for moving down and left
 	{
 		legal = MoveLeftBot(destX, destY, srcX, srcY, board);
 	}
-	else if (srcY > destY && srcX < destX)
+	else if (srcY > destY && srcX < destX)// for moving down and right
 	{
 		legal = MoveRightBot(destX, destY, srcX, srcY, board);
 	}
-	else if (srcY < destY && srcX > destX)
+	else if (srcY < destY && srcX > destX)// for moving up and left
 	{
 		legal = MoveLeftTop(destX, destY, srcX, srcY, board);
 	}
-	else
+	else// for moving up and right
 	{
 		legal = MoveRightTop(destX, destY, srcX, srcY, board);
 	}
@@ -81,7 +81,7 @@ bool Bishop::IsMoveLegal(const int destX, const int destY, const int srcX, const
 
 	legal = false;
 
-	if (srcY == destY && srcX == destX)
+	if (srcY == destY && srcX == destX)// dest = src, no movement
 	{
 		result = SRC_DST_EQUAL;
 		return legal;
@@ -89,7 +89,7 @@ bool Bishop::IsMoveLegal(const int destX, const int destY, const int srcX, const
 
 	whitePlays = !whitePlays;
 	legal = true;
-	if (IsSelfCheck(srcX, srcY, board, whitePlays))
+	if (IsSelfCheck(srcX, srcY, board, whitePlays)) // check if move made check on other player
 	{
 		result = TO_CHECK_MOVE;
 		return legal;
