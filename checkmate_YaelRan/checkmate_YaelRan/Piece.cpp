@@ -17,13 +17,15 @@ char Piece::GetName() const
 
 void Piece::MovePlace(int destX, int destY, int srcX, int srcY, Piece** board[])
 {
-	if (board[destX][destY]->GetName() != '#')
+	Piece* temp = board[destY][destX];
+	if (board[destY][destX]->GetName() != '#')
 	{
 		Eat(destX, destY, srcX, srcY, board);
 	}
 	else
 	{
-		//board[srcX][srcY] = NullPiece()
+		board[destY][destX] = board[srcY][srcX];
+		board[srcY][srcX] = temp;
 	}
 }
 
