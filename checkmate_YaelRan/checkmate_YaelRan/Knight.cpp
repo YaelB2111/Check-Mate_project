@@ -10,7 +10,7 @@ Knight::~Knight()
 
 bool Knight::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece* board[], int& result, bool whitePlays)
 {
-	char name = 'k';
+	char name = 'n';
 	bool legal = false;
 	int boardSize = SIZE;
 
