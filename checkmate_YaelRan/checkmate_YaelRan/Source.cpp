@@ -20,6 +20,7 @@ void main()
 
 	int srcX = 0, srcY = 0, dstX = 0, dstY = 0, resultCode = -1;
 	std:string startBoardSymbles = "RNBKQBNRPPPPPPPP################################pppppppprnbkqbnr";
+	char code = '0';
 	Game game = Game(startBoardSymbles);
 	Pipe p;
 	bool isConnect = p.connect(), amIGood = false;
@@ -58,16 +59,12 @@ void main()
 	while (msgFromGraphics != "quit")
 	{
 		LogicalClac::convertMsgToCordinates(msgFromGraphics, srcX, srcY, dstX, dstY);
-		amIGood = game.getBoard()[8*srcY+srcX]->IsMoveLegal(dstX, dstY, srcX, srcY, (const Piece**)game.getBoard(), resultCode, game.getWhosTurn());
-
-		strcpy_s(msgToGraphics, "YOUR CODE"); // msgToGraphics should contain the result of the operation
-
-		/******* JUST FOR EREZ DEBUGGING ******/
-		int r = rand() % 10; // just for debugging......
-		msgToGraphics[0] = (char)(1 + '0');
-		msgToGraphics[1] = 0;
-		/******* JUST FOR EREZ DEBUGGING ******/
-
+		if (game.getBoard()[srcY][srcX]->IsMoveLegal(dstX, dstY, srcX, srcY, (const Piece***)game.getBoard(), resultCode, game.getWhosTurn()))
+		{
+			game.getBoard()[srcY][srcX]->MovePlace(dstX, dstY, srcX, srcY, game.getBoard());
+			game.changeTurn();
+		}
+		strcpy_s(msgToGraphics, to_string(resultCode).c_str()); // msgToGraphics should contain the result of the operation
 
 		// return result to graphics		
 		p.sendMessageToGraphics(msgToGraphics);
