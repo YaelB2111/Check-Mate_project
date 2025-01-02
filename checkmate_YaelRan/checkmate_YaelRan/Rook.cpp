@@ -99,7 +99,10 @@ bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 	result = VALID_MOVE;
 	return legal;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4aafe1866398a4ca03bbfc1a4f4a22905e49e6a6
 bool Rook::IsLegalForward(const int destY, const int srcX, const int srcY, const Piece* board[])
 {
 	int i = 0;
@@ -114,8 +117,11 @@ bool Rook::IsLegalForward(const int destY, const int srcX, const int srcY, const
 	}
 	return legal;
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 4aafe1866398a4ca03bbfc1a4f4a22905e49e6a6
 bool Rook::IsLegalBackward(const int destY, const int srcX, const int srcY, const Piece** board)
 {
 	int i = 0;
