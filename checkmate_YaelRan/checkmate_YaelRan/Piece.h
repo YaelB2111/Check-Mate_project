@@ -3,6 +3,19 @@
 #include <string>
 #include <cctype>
 
+#define VALID_MOVE 0
+#define TO_CHECK_MOVE 1
+#define NO_PIECE_SRC 2
+#define PIECE_DST 3
+#define SELF_CHECK 4
+#define OUT_OF_BOUND 5
+#define INVALID_MOVE 6
+#define SRC_DST_EQUAL 7
+#define CHECK_MOVE 8
+
+
+#define SIZE 8
+
 using namespace std;
 class Piece
 {

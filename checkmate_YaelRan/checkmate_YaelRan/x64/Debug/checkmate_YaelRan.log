@@ -1,0 +1,26 @@
+﻿  Bishop.cpp
+  King.cpp
+  Knight.cpp
+  NullPiece.cpp
+  Piece.cpp
+  Rook.cpp
+C:\Users\Cyber_User\Documents\magshimim\Year B\acronot\checkMate_project\Check-Mate_project\checkmate_YaelRan\checkmate_YaelRan\Rook.h(11,10): error C2059: syntax error: 'constant'
+  (compiling source file 'Rook.cpp')
+  
+C:\Users\Cyber_User\Documents\magshimim\Year B\acronot\checkMate_project\Check-Mate_project\checkmate_YaelRan\checkmate_YaelRan\Rook.h(12,153): error C2238: unexpected token(s) preceding ';'
+  (compiling source file 'Rook.cpp')
+  
+C:\Users\Cyber_User\Documents\magshimim\Year B\acronot\checkMate_project\Check-Mate_project\checkmate_YaelRan\checkmate_YaelRan\Rook.cpp(11,12): error C2509: 'IsMoveLegal': member function not declared in 'Rook'
+      C:\Users\Cyber_User\Documents\magshimim\Year B\acronot\checkMate_project\Check-Mate_project\checkmate_YaelRan\checkmate_YaelRan\Rook.h(7,7):
+      see declaration of 'Rook'
+  
+  Source.cpp
+C:\Users\Cyber_User\Documents\magshimim\Year B\acronot\checkMate_project\Check-Mate_project\checkmate_YaelRan\checkmate_YaelRan\Rook.h(11,10): error C2059: syntax error: 'constant'
+  (compiling source file 'Source.cpp')
+  
+C:\Users\Cyber_User\Documents\magshimim\Year B\acronot\checkMate_project\Check-Mate_project\checkmate_YaelRan\checkmate_YaelRan\Rook.h(12,153): error C2238: unexpected token(s) preceding ';'
+  (compiling source file 'Source.cpp')
+  
+C:\Users\Cyber_User\Documents\magshimim\Year B\acronot\checkMate_project\Check-Mate_project\checkmate_YaelRan\checkmate_YaelRan\Source.cpp(17,6): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  stdafx.cpp
+  Generating Code...

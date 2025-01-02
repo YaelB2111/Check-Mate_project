@@ -30,7 +30,7 @@ bool Queen::IsMoveLegal(const int destX, const int destY, const int srcX, const 
 		return legal;
 	}
 
-	else if (!whitePlays && board[destX][destY].GetName() == toupper(board[destX][destY].GetName()))// for black, dest piece is also black
+	else if (!whitePlays && board[destX][destY].GetName() != toupper(board[destX][destY].GetName()))// for black, dest piece is also black
 	{
 		result = PIECE_DST;
 		return legal;
@@ -54,6 +54,8 @@ bool Queen::IsMoveLegal(const int destX, const int destY, const int srcX, const 
 		return legal;
 	}
 
+
+	//check that there's not piece in the middle of the move
 	if (srcX != destX && destY != srcY) // to move like bishop
 	{
 		if (srcY > destY && srcX > destX) // for moving down and left

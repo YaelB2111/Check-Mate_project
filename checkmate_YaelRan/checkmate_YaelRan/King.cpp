@@ -10,58 +10,54 @@ King::~King()
 
 bool King::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece* board[], int& result, bool whitePlays)
 {
-	char name = 'K';
+	char name = 'k';
 	bool legal = false;
 	int boardSize = sizeof(board) / sizeof(board[0]);
 
-	if (whitePlays)
+	if (whitePlays) // for white K
 	{
 		name = toupper(name);
 	}
-	if (name != board[srcX][srcY].GetName())
+
+	if (name != board[srcX][srcY].GetName()) // no piece in source or not right team
 	{
 		result = NO_PIECE_SRC;
 		return legal;
 	}
 
-	if (whitePlays && board[destX][destY].GetName() == tolower(board[destX][destY].GetName()))
+	if (whitePlays && board[destX][destY].GetName() != tolower(board[destX][destY].GetName()))// if white eats white
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	else if (!whitePlays && board[destX][destY].GetName() == toupper(board[destX][destY].GetName()))
+	else if (!whitePlays && board[destX][destY].GetName() != toupper(board[destX][destY].GetName())) // if black eats black
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	if (IsSelfCheck(srcX, srcY, board, whitePlays))
+	if (IsSelfCheck(srcX, srcY, board, whitePlays))//self check
 	{
 		result = SELF_CHECK;
 		return legal;
 	}
 
-	if (destX >= boardSize || srcX >= boardSize || destY >= boardSize || srcY >= boardSize)
+	if (destX >= boardSize || srcX >= boardSize || destY >= boardSize || srcY >= boardSize)//out of board
 	{
 		result = OUT_OF_BOUND;
 		return legal;
 	}
 
-	if (destX != srcX && destY != srcY)
+
+	if (abs(destX - srcX) > 1 || abs(destY - srcY) > 1) // lings move can change cordinate up to one
 	{
 		result = INVALID_MOVE;
 		return legal;
 	}
 
-	if (abs(destX - srcX)> 1 || abs(destY - srcY) > 1)
-	{
-		result = INVALID_MOVE;
-		return legal;
-	}
 
-
-	if (srcY == destY && srcX == destX)
+	if (srcY == destY && srcX == destX)//didnt change place
 	{
 		result = SRC_DST_EQUAL;
 		return legal;

@@ -10,13 +10,13 @@ Bishop::~Bishop()
 
 bool Bishop::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece* board[], int& result, bool whitePlays)
 {
-	char name = 'r';
+	char name = 'b';
 	bool legal = false;
 	int boardSize = sizeof(board) / sizeof(board[0]);
 
 	if (whitePlays)
 	{
-		name = toupper(name); // white is caps (R)
+		name = toupper(name); // white is caps (B)
 	}
 	if (name != board[srcX][srcY].GetName()) // player with with a piece thats not his
 	{
@@ -30,7 +30,7 @@ bool Bishop::IsMoveLegal(const int destX, const int destY, const int srcX, const
 		return legal;
 	}
 
-	else if (!whitePlays && board[destX][destY].GetName() == toupper(board[destX][destY].GetName()))// for black, dest piece is also black
+	else if (!whitePlays && board[destX][destY].GetName() != toupper(board[destX][destY].GetName()))// for black, dest piece is also black
 	{
 		result = PIECE_DST;
 		return legal;
@@ -54,7 +54,7 @@ bool Bishop::IsMoveLegal(const int destX, const int destY, const int srcX, const
 		return legal;
 	}
 
-
+	//check that there's not piece in the middle of the move
 	if (srcY > destY && srcX > destX) // for moving down and left
 	{
 		legal = MoveLeftBot(destX, destY, srcX, srcY, board);

@@ -7,5 +7,6 @@ class NullPiece : public Piece
 public:
 	~NullPiece();
 	NullPiece();
+	//void GotEaten(const Piece& piece, const Piece** board);
 };
 

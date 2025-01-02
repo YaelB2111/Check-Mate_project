@@ -10,51 +10,51 @@ Rook::~Rook()
 
 bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece* board[], int& result, bool whitePlays)
 {
-	char name = 'R';
+	char name = 'r';
 	bool legal = false;
 	int boardSize = sizeof(board) / sizeof(board[0]);
 
-	if (whitePlays)
+	if (whitePlays) // if white plays then r = R
 	{
 		name = toupper(name);
 	}
-	if (name != board[srcX][srcY].GetName())
+	if (name != board[srcX][srcY].GetName()) //  no piece in source or not your team's piece
 	{
 		result = NO_PIECE_SRC;
 		return legal;
 	}
 
-	if (whitePlays && board[destX][destY].GetName() == tolower(board[destX][destY].GetName()))
+	if (whitePlays && board[destX][destY].GetName() != tolower(board[destX][destY].GetName())) // for white, dest piece is also white
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	else if (!whitePlays && board[destX][destY].GetName() == toupper(board[destX][destY].GetName()))
+	else if (!whitePlays && board[destX][destY].GetName() != toupper(board[destX][destY].GetName())) // for black, dest piece is also black
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	if (IsSelfCheck(srcX, srcY, board, whitePlays))
+	if (IsSelfCheck(srcX, srcY, board, whitePlays)) // self check
 	{
 		result = SELF_CHECK;
 		return legal;
 	}
 
-	if (destX >= boardSize || srcX >= boardSize || destY >= boardSize || srcY >= boardSize)
+	if (destX >= boardSize || srcX >= boardSize || destY >= boardSize || srcY >= boardSize) // dest out of board
 	{
 		result = OUT_OF_BOUND;
 		return legal;
 	}
 
-	if (destX != srcX && destY != srcY)
+	if (destX != srcX && destY != srcY)  // if piece changed both directions 
 	{
 		result = INVALID_MOVE;
 		return legal;
 	}
 
-
+	//check that there's not piece in the middle of the move
 	if (srcY > destY)
 	{
 		legal = IsLegalBackward(destY, srcX, srcY, board);
@@ -81,7 +81,7 @@ bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 
 	legal = false;
 
-	if (srcY == destY && srcX == destX)
+	if (srcY == destY && srcX == destX) // piece didnt change location
 	{
 		result = SRC_DST_EQUAL;
 		return legal;
@@ -99,7 +99,8 @@ bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 	result = VALID_MOVE;
 	return legal;
 }
-bool IsLegalForward(const int destY, const int srcX, const int srcY, const Piece* board[])
+
+bool Rook::IsLegalForward(const int destY, const int srcX, const int srcY, const Piece* board[])
 {
 	int i = 0;
 	bool legal = true;
@@ -112,7 +113,10 @@ bool IsLegalForward(const int destY, const int srcX, const int srcY, const Piece
 		}
 	}
 	return legal;
-}bool IsLegalBackward(const int destY, const int srcX, const int srcY, const Piece** board)
+}
+
+
+bool Rook::IsLegalBackward(const int destY, const int srcX, const int srcY, const Piece** board)
 {
 	int i = 0;
 	bool legal = true;
@@ -127,7 +131,7 @@ bool IsLegalForward(const int destY, const int srcX, const int srcY, const Piece
 	return legal;
 }
 
-bool IsLegalRight(const int destX, const int srcX, const int srcY, const Piece** board)
+bool Rook::IsLegalRight(const int destX, const int srcX, const int srcY, const Piece** board)
 {
 	int i = 0;
 	bool legal = true;
@@ -141,7 +145,7 @@ bool IsLegalRight(const int destX, const int srcX, const int srcY, const Piece**
 	}
 	return legal;
 }
-bool IsLegalLeft(const int destX, const int srcX, const int srcY, const Piece** board)
+bool Rook::IsLegalLeft(const int destX, const int srcX, const int srcY, const Piece** board)
 {
 	int i = 0;
 	bool legal = true;

@@ -17,14 +17,13 @@ char Piece::GetName() const
 
 void Piece::MovePlace(int destX, int destY, int srcX, int srcY, Piece* board[])
 {
-	if (board[destX][destY].GetName() != ' ')
+	if (board[destX][destY].GetName() != '#')
 	{
 		Eat(destX, destY, srcX, srcY, board);
 	}
 	else
 	{
-		board[srcX][srcY]._name = ' ';
-		// add null piece
+		//board[srcX][srcY] = NullPiece()
 	}
 }
 
@@ -69,8 +68,7 @@ bool Piece::IsSelfCheck(const int srcX, const int srcY, const Piece* board[], co
 void Piece::Eat(int destX, int destY, int srcX, int srcY, Piece* board[])
 {
 	board[destX][destY] = board[srcX][srcY];
-	board[srcX][srcY]._name = ' ';
-	// add null piece
+	//board[srcX][srcY] = new NullPiece();
 }
 
 
