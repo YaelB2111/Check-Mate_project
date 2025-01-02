@@ -69,8 +69,9 @@ bool Piece::IsSelfCheck(const int srcX, const int srcY, const Piece** board[], c
 
 void Piece::Eat(int destX, int destY, int srcX, int srcY, Piece** board[])
 {
-	board[destX][destY] = board[srcX][srcY];
-	//board[srcX][srcY] = new NullPiece();
+	free(board[destY][destX]); //deallocate the eaten piece
+	board[destY][destX] = board[srcY][srcX];
+	board[srcY][srcX] = nullptr;
 }
 
 
