@@ -12,7 +12,7 @@ bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 {
 	char name = 'r';
 	bool legal = false;
-	int boardSize = sizeof(board) / sizeof(board[0]);
+	int boardSize = SIZE;
 
 	if (whitePlays) // if white plays then r = R
 	{

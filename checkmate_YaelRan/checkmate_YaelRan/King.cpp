@@ -12,7 +12,7 @@ bool King::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 {
 	char name = 'k';
 	bool legal = false;
-	int boardSize = sizeof(board) / sizeof(board[0]);
+	int boardSize = SIZE;
 
 	if (whitePlays) // for white K
 	{

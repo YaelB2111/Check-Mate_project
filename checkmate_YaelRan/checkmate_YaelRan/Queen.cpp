@@ -12,7 +12,7 @@ bool Queen::IsMoveLegal(const int destX, const int destY, const int srcX, const 
 {
 	char name = 'q';
 	bool legal = false;
-	int boardSize = sizeof(board) / sizeof(board[0]);
+	int boardSize = SIZE;
 
 	if (whitePlays)
 	{

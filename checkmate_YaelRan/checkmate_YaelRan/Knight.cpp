@@ -12,7 +12,7 @@ bool Knight::IsMoveLegal(const int destX, const int destY, const int srcX, const
 {
 	char name = 'k';
 	bool legal = false;
-	int boardSize = sizeof(board) / sizeof(board[0]);
+	int boardSize = SIZE;
 
 	if (whitePlays) // white is caps
 	{

@@ -31,7 +31,7 @@ bool Piece::IsSelfCheck(const int srcX, const int srcY, const Piece* board[], co
 {
 	int kingX = 0, kingY = 0;
 
-	int i = 0, rows = sizeof(board) / sizeof(board[0]), j = 0 , cols = sizeof(board[0]) / sizeof(board[0][0]), result = 0;
+	int i = 0, rows = SIZE, j = 0 , cols = SIZE, result = 0;
 	bool selfCheck = false;
 	char lettterToFind = 'K';
 	
