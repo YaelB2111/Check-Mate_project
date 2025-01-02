@@ -3,66 +3,67 @@
 Game::Game(std::string board) : _side(SIDE_SIZE), _playsTurn(true)
 {
 	Piece* ptr = nullptr;
-	int i = 0, j = 0;
+	int i = 0, j = 0, idxStrBoard = 0;
 	this->_pieces = new Piece **[SIDE_SIZE];
     for (i = 0; i < SIDE_SIZE; i++)
     {
         this->_pieces[i] = new Piece * [SIDE_SIZE];
         for (j = 0; j < SIDE_SIZE; j++)
         {
-            if (board[j] == '#')
+            if (board[idxStrBoard] == '#')
             {
                 ptr = new NullPiece(); // null piece
             }
-            if (board[j] == 'p')
+            if (board[idxStrBoard] == 'p')
             {
                 ptr = new Pawn('p'); // white pawn
             }
-            if (board[j] == 'P')
+            if (board[idxStrBoard] == 'P')
             {
                 ptr = new Pawn('P'); // black pawn
             }
-            if (board[j] == 'n')
+            if (board[idxStrBoard] == 'n')
             {
                 ptr = new Knight('n'); // white Knight
             }
-            if (board[j] == 'N')
+            if (board[idxStrBoard] == 'N')
             {
                 ptr = new Knight('N'); // black Knight
             }
-            if (board[j] == 'b')
+            if (board[idxStrBoard] == 'b')
             {
                 ptr = new Bishop('b'); // white Bishop
             }
-            if (board[j] == 'B')
+            if (board[idxStrBoard] == 'B')
             {
                 ptr = new Bishop('B'); // black Bishop
             }
-            if (board[j] == 'r')
+            if (board[idxStrBoard] == 'r')
             {
                 ptr = new Rook('r'); // white Rook
             }
-            if (board[j] == 'R')
+            if (board[idxStrBoard] == 'R')
             {
                 ptr = new Rook('R'); // black Rook
             }
-            if (board[j] == 'q')
+            if (board[idxStrBoard] == 'q')
             {
                 ptr = new Queen('q'); // white Queen
             }
-            if (board[j] == 'Q')
+            if (board[idxStrBoard] == 'Q')
             {
                 ptr = new Queen('Q'); // black Queen
             }
-            if (board[j] == 'k')
+            if (board[idxStrBoard] == 'k')
             {
                 ptr = new King('k'); // white King
             }
-            if (board[j] == 'K')
+            if (board[idxStrBoard] == 'K')
             {
                 ptr = new King('K'); // black King
             }
             this->_pieces[i][j] = ptr;
+            idxStrBoard++;
         }
     }
 }
