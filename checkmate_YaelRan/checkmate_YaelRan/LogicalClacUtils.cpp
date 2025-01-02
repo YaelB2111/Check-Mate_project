@@ -146,3 +146,18 @@ void LogicalClac::convertMsgToCordinates(string msg, int& srcX, int& srcY, int& 
 	dstX = int(msg[2]) - 'a';
 	dstY = int(msg[3]) - '1';
 }
+
+void LogicalClac::replaceNullWithNullObj(Piece*** board)
+{
+	int i = 0, j = 0;
+	for (i = 0; i < SIDE_SIZE; i++)
+	{
+		for (j = 0; j < SIDE_SIZE; j++)
+		{
+			if (board[i][j] == nullptr)
+			{
+				board[i][j] = new NullPiece();
+			}
+		}
+	}
+}
