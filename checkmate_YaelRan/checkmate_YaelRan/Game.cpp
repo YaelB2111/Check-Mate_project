@@ -156,3 +156,8 @@ void Game::changeTurn()
 {
     this->_playsTurn = !this->getWhosTurn();
 }
+
+void Game::nullPtrReplce()
+{
+    LogicalClac::replaceNullWithNullObj(this->getBoard());
+}
