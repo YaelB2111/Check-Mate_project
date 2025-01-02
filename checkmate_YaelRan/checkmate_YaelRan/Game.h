@@ -23,6 +23,7 @@ public:
 	bool isCheck();
 	Piece*** getBoard() const;
 	bool getWhosTurn() const;
+	void changeTurn();
 
 private:
 	unsigned int _side;

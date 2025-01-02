@@ -151,3 +151,8 @@ bool Game::getWhosTurn() const
 {
     return this->_playsTurn;
 }
+
+void Game::changeTurn()
+{
+    this->_playsTurn = !this->getWhosTurn();
+}
