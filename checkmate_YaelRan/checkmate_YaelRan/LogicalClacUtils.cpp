@@ -150,13 +150,15 @@ void LogicalClac::convertMsgToCordinates(string msg, int& srcX, int& srcY, int& 
 void LogicalClac::replaceNullWithNullObj(Piece*** board)
 {
 	int i = 0, j = 0;
-	for (i = 0; i < SIDE_SIZE; i++)
+	bool replaced = false;
+	for (i = 0; i < SIDE_SIZE && !replaced; i++)
 	{
-		for (j = 0; j < SIDE_SIZE; j++)
+		for (j = 0; j < SIDE_SIZE && !replaced; j++)
 		{
 			if (board[i][j] == nullptr)
 			{
 				board[i][j] = new NullPiece();
+				replaced = true;
 			}
 		}
 	}
