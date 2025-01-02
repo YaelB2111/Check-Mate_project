@@ -18,10 +18,11 @@ void main()
 {
 	srand(time_t(NULL));
 
-std:string startBoardSymbles = "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR";
+	int srcX = 0, srcY = 0, dstX = 0, dstY = 0, resultCode = -1;
+	std:string startBoardSymbles = "RNBKQBNRPPPPPPPP################################pppppppprnbkqbnr";
 	Game game = Game(startBoardSymbles);
 	Pipe p;
-	bool isConnect = p.connect();
+	bool isConnect = p.connect(), amIGood = false;
 
 	string ans;
 	while (!isConnect)
@@ -56,10 +57,9 @@ std:string startBoardSymbles = "rnbkqbnrpppppppp################################
 
 	while (msgFromGraphics != "quit")
 	{
-		// should handle the string the sent from graphics
-		// according the protocol. Ex: e2e4           (move e2 to e4)
+		LogicalClac::convertMsgToCordinates(msgFromGraphics, srcX, srcY, dstX, dstY);
+		amIGood = game.getBoard()[8*srcY+srcX]->IsMoveLegal(dstX, dstY, srcX, srcY, (const Piece**)game.getBoard(), resultCode, game.getWhosTurn());
 
-		// YOUR CODE
 		strcpy_s(msgToGraphics, "YOUR CODE"); // msgToGraphics should contain the result of the operation
 
 		/******* JUST FOR EREZ DEBUGGING ******/
