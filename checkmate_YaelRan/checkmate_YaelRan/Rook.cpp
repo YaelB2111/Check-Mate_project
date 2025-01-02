@@ -8,7 +8,7 @@ Rook::~Rook()
 {
 }
 
-bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece* board[], int& result, bool whitePlays)
+bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece** board[], int& result, bool whitePlays)
 {
 	char name = 'r';
 	bool legal = false;
@@ -18,19 +18,19 @@ bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 	{
 		name = toupper(name);
 	}
-	if (name != board[srcX][srcY].GetName()) //  no piece in source or not your team's piece
+	if (name != board[srcX][srcY]->GetName()) //  no piece in source or not your team's piece
 	{
 		result = NO_PIECE_SRC;
 		return legal;
 	}
 
-	if (whitePlays && board[destX][destY].GetName() != tolower(board[destX][destY].GetName())) // for white, dest piece is also white
+	if (whitePlays && board[destX][destY]->GetName() != tolower(board[destX][destY]->GetName())) // for white, dest piece is also white
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	else if (!whitePlays && board[destX][destY].GetName() != toupper(board[destX][destY].GetName())) // for black, dest piece is also black
+	else if (!whitePlays && board[destX][destY]->GetName() != toupper(board[destX][destY]->GetName())) // for black, dest piece is also black
 	{
 		result = PIECE_DST;
 		return legal;
@@ -99,37 +99,29 @@ bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 	result = VALID_MOVE;
 	return legal;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 4aafe1866398a4ca03bbfc1a4f4a22905e49e6a6
-bool Rook::IsLegalForward(const int destY, const int srcX, const int srcY, const Piece* board[])
+bool Rook::IsLegalForward(const int destY, const int srcX, const int srcY, const Piece** board[])
 {
 	int i = 0;
 	bool legal = true;
 
 	for (i = srcY; i < destY && !legal; i++)
 	{
-		if (board[srcX][i].GetName() != '#')
+		if (board[srcX][i]->GetName() != '#')
 		{
 			legal = false;
 		}
 	}
 	return legal;
 }
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 4aafe1866398a4ca03bbfc1a4f4a22905e49e6a6
-bool Rook::IsLegalBackward(const int destY, const int srcX, const int srcY, const Piece** board)
+bool Rook::IsLegalBackward(const int destY, const int srcX, const int srcY, const Piece*** board)
 {
 	int i = 0;
 	bool legal = true;
 	
 	for (i = srcY; i > destY && !legal; i--)
 	{
-		if (board[srcX][i].GetName() != '#')
+		if (board[srcX][i]->GetName() != '#')
 		{
 			legal = false;
 		}
@@ -137,28 +129,28 @@ bool Rook::IsLegalBackward(const int destY, const int srcX, const int srcY, cons
 	return legal;
 }
 
-bool Rook::IsLegalRight(const int destX, const int srcX, const int srcY, const Piece** board)
+bool Rook::IsLegalRight(const int destX, const int srcX, const int srcY, const Piece*** board)
 {
 	int i = 0;
 	bool legal = true;
 
 	for (i = srcX; i < destX && !legal; i++)
 	{
-		if (board[i][srcY].GetName() != '#')
+		if (board[i][srcY]->GetName() != '#')
 		{
 			legal = false;
 		}
 	}
 	return legal;
 }
-bool Rook::IsLegalLeft(const int destX, const int srcX, const int srcY, const Piece** board)
+bool Rook::IsLegalLeft(const int destX, const int srcX, const int srcY, const Piece*** board)
 {
 	int i = 0;
 	bool legal = true;
 
 	for (i = srcX; i > destX && !legal; i--)
 	{
-		if (board[i][srcY].GetName() != '#')
+		if (board[i][srcY]->GetName() != '#')
 		{
 			legal = false;
 		}

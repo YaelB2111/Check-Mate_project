@@ -1,6 +1,11 @@
 #pragma once
 #include "Piece.h"
 #include "Rook.h"
+#include "Pawn.h"
+#include "King.h"
+#include "Queen.h"
+#include "Bishop.h"
+#include "Knight.h"
 #include "NullPiece.h"
 #include "LogicalClacUtils.h"
 #include <iostream>
@@ -16,9 +21,11 @@ public:
 	std::string boardState() const;
 	//manageGame - probably useless
 	bool isCheck();
+	Piece*** getBoard() const;
+	bool getWhosTurn() const;
 
 private:
 	unsigned int _side;
 	bool _playsTurn; //black -> false |  white -> true 
-	Piece** _pieces;
+	Piece*** _pieces;
 };

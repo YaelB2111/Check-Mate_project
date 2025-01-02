@@ -8,7 +8,7 @@ Knight::~Knight()
 {
 }
 
-bool Knight::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece* board[], int& result, bool whitePlays)
+bool Knight::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece** board[], int& result, bool whitePlays)
 {
 	char name = 'n';
 	bool legal = false;
@@ -19,19 +19,19 @@ bool Knight::IsMoveLegal(const int destX, const int destY, const int srcX, const
 		name = toupper(name);
 	}
 
-	if (name != board[srcX][srcY].GetName()) // dest is empty or the other team's piece
+	if (name != board[srcX][srcY]->GetName()) // dest is empty or the other team's piece
 	{
 		result = NO_PIECE_SRC;
 		return legal;
 	}
 	
-	if (whitePlays && board[destX][destY].GetName() != tolower(board[destX][destY].GetName())) // if white tries to eats white
+	if (whitePlays && board[destX][destY]->GetName() != tolower(board[destX][destY]->GetName())) // if white tries to eats white
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	else if (!whitePlays && board[destX][destY].GetName() != toupper(board[destX][destY].GetName()))// if black tries to eats black
+	else if (!whitePlays && board[destX][destY]->GetName() != toupper(board[destX][destY]->GetName()))// if black tries to eats black
 	{
 		result = PIECE_DST;
 		return legal;

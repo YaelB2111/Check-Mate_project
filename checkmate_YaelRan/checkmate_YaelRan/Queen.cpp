@@ -8,7 +8,7 @@ Queen::~Queen()
 {
 }
 
-bool Queen::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece* board[], int& result, bool whitePlays)
+bool Queen::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece** board[], int& result, bool whitePlays)
 {
 	char name = 'q';
 	bool legal = false;
@@ -18,19 +18,19 @@ bool Queen::IsMoveLegal(const int destX, const int destY, const int srcX, const 
 	{
 		name = toupper(name); // white is caps (Q)
 	}
-	if (name != board[srcX][srcY].GetName()) // player with with a piece thats not his
+	if (name != board[srcX][srcY]->GetName()) // player with with a piece thats not his
 	{
 		result = NO_PIECE_SRC;
 		return legal;
 	}
 
-	if (whitePlays && board[destX][destY].GetName() == toupper(board[destX][destY].GetName())) // for white, dest piece is also white
+	if (whitePlays && board[destX][destY]->GetName() == toupper(board[destX][destY]->GetName())) // for white, dest piece is also white
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	else if (!whitePlays && board[destX][destY].GetName() != toupper(board[destX][destY].GetName()))// for black, dest piece is also black
+	else if (!whitePlays && board[destX][destY]->GetName() != toupper(board[destX][destY]->GetName()))// for black, dest piece is also black
 	{
 		result = PIECE_DST;
 		return legal;
@@ -124,14 +124,14 @@ bool Queen::IsMoveLegal(const int destX, const int destY, const int srcX, const 
 	return legal;
 }
 
-bool Queen::IsLegalForward(const int destY, const int srcX, const int srcY, const Piece* board[])
+bool Queen::IsLegalForward(const int destY, const int srcX, const int srcY, const Piece** board[])
 {
 	int i = 0;
 	bool legal = true;
 
 	for (i = srcY; i < destY && !legal; i++)
 	{
-		if (board[srcX][i].GetName() != '#')
+		if (board[srcX][i]->GetName() != '#')
 		{
 			legal = false;
 		}
@@ -139,7 +139,7 @@ bool Queen::IsLegalForward(const int destY, const int srcX, const int srcY, cons
 	return legal;
 }
 
-bool Queen::IsLegalBackward(const int destY, const int srcX, const int srcY, const Piece** board)
+bool Queen::IsLegalBackward(const int destY, const int srcX, const int srcY, const Piece*** board)
 {
 
 	int i = 0;
@@ -147,7 +147,7 @@ bool Queen::IsLegalBackward(const int destY, const int srcX, const int srcY, con
 
 	for (i = srcY; i > destY && !legal; i--)
 	{
-		if (board[srcX][i].GetName() != '#')
+		if (board[srcX][i]->GetName() != '#')
 		{
 			legal = false;
 		}
@@ -155,14 +155,14 @@ bool Queen::IsLegalBackward(const int destY, const int srcX, const int srcY, con
 	return legal;
 }
 
-bool Queen::IsLegalRight(const int destX, const int srcX, const int srcY, const Piece** board)
+bool Queen::IsLegalRight(const int destX, const int srcX, const int srcY, const Piece*** board)
 {
 	int i = 0;
 	bool legal = true;
 
 	for (i = srcX; i < destX && !legal; i++)
 	{
-		if (board[i][srcY].GetName() != '#')
+		if (board[i][srcY]->GetName() != '#')
 		{
 			legal = false;
 		}
@@ -170,14 +170,14 @@ bool Queen::IsLegalRight(const int destX, const int srcX, const int srcY, const 
 	return legal;
 }
 
-bool Queen::IsLegalLeft(const int destX, const int srcX, const int srcY, const Piece** board)
+bool Queen::IsLegalLeft(const int destX, const int srcX, const int srcY, const Piece*** board)
 {
 	int i = 0;
 	bool legal = true;
 
 	for (i = srcX; i > destX && !legal; i--)
 	{
-		if (board[i][srcY].GetName() != '#')
+		if (board[i][srcY]->GetName() != '#')
 		{
 			legal = false;
 		}
@@ -185,7 +185,7 @@ bool Queen::IsLegalLeft(const int destX, const int srcX, const int srcY, const P
 	return legal;
 }
 
-bool Queen::MoveRightTop(const int destX, const int destY, const int srcX, const int srcY, const Piece* board[]) const
+bool Queen::MoveRightTop(const int destX, const int destY, const int srcX, const int srcY, const Piece** board[]) const
 {
 	int i = 0, j = 0;
 	bool legal = true;
@@ -193,7 +193,7 @@ bool Queen::MoveRightTop(const int destX, const int destY, const int srcX, const
 	j = srcX;
 	for (i = srcY; i < destY; i++, j++)
 	{
-		if (board[j][i].GetName() != '#')
+		if (board[j][i]->GetName() != '#')
 		{
 			return false;
 		}
@@ -201,7 +201,7 @@ bool Queen::MoveRightTop(const int destX, const int destY, const int srcX, const
 	return legal;
 }
 
-bool Queen::MoveRightBot(const int destX, const int destY, const int srcX, const int srcY, const Piece* board[]) const
+bool Queen::MoveRightBot(const int destX, const int destY, const int srcX, const int srcY, const Piece** board[]) const
 {
 	int i = 0, j = 0;
 	bool legal = true;
@@ -209,7 +209,7 @@ bool Queen::MoveRightBot(const int destX, const int destY, const int srcX, const
 	j = srcX;
 	for (i = srcY; i > destY; i--, j++)
 	{
-		if (board[j][i].GetName() != '#')
+		if (board[j][i]->GetName() != '#')
 		{
 			return false;
 		}
@@ -217,7 +217,7 @@ bool Queen::MoveRightBot(const int destX, const int destY, const int srcX, const
 	return legal;
 }
 
-bool Queen::MoveLeftTop(const int destX, const int destY, const int srcX, const int srcY, const Piece* board[]) const
+bool Queen::MoveLeftTop(const int destX, const int destY, const int srcX, const int srcY, const Piece** board[]) const
 {
 	int i = 0, j = 0;
 	bool legal = true;
@@ -225,7 +225,7 @@ bool Queen::MoveLeftTop(const int destX, const int destY, const int srcX, const 
 	j = srcX;
 	for (i = srcY; i < destY; i++, j--)
 	{
-		if (board[j][i].GetName() != '#')
+		if (board[j][i]->GetName() != '#')
 		{
 			return false;
 		}
@@ -233,7 +233,7 @@ bool Queen::MoveLeftTop(const int destX, const int destY, const int srcX, const 
 	return legal;
 }
 
-bool Queen::MoveLeftBot(const int destX, const int destY, const int srcX, const int srcY, const Piece* board[]) const
+bool Queen::MoveLeftBot(const int destX, const int destY, const int srcX, const int srcY, const Piece** board[]) const
 {
 	int i = 0, j = 0;
 	bool legal = true;
@@ -241,7 +241,7 @@ bool Queen::MoveLeftBot(const int destX, const int destY, const int srcX, const 
 	j = srcX;
 	for (i = srcY; i > destY; i--, j--)
 	{
-		if (board[j][i].GetName() != '#')
+		if (board[j][i]->GetName() != '#')
 		{
 			return false;
 		}

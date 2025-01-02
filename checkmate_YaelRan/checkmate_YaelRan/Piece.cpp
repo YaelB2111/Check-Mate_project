@@ -15,9 +15,9 @@ char Piece::GetName() const
 	return this->_name;
 }
 
-void Piece::MovePlace(int destX, int destY, int srcX, int srcY, Piece* board[])
+void Piece::MovePlace(int destX, int destY, int srcX, int srcY, Piece** board[])
 {
-	if (board[destX][destY].GetName() != '#')
+	if (board[destX][destY]->GetName() != '#')
 	{
 		Eat(destX, destY, srcX, srcY, board);
 	}
@@ -27,7 +27,7 @@ void Piece::MovePlace(int destX, int destY, int srcX, int srcY, Piece* board[])
 	}
 }
 
-bool Piece::IsSelfCheck(const int srcX, const int srcY, const Piece* board[], const bool whitePlays)
+bool Piece::IsSelfCheck(const int srcX, const int srcY, const Piece** board[], const bool whitePlays)
 {
 	int kingX = 0, kingY = 0;
 
@@ -44,7 +44,7 @@ bool Piece::IsSelfCheck(const int srcX, const int srcY, const Piece* board[], co
 	{
 		for (j = 0; j < cols; j++)
 		{
-			if (board[j][i]._name == lettterToFind)
+			if (board[j][i]->_name == lettterToFind)
 			{
 				kingX = j;
 				kingY = i;
@@ -65,7 +65,7 @@ bool Piece::IsSelfCheck(const int srcX, const int srcY, const Piece* board[], co
 	return selfCheck;
 }
 
-void Piece::Eat(int destX, int destY, int srcX, int srcY, Piece* board[])
+void Piece::Eat(int destX, int destY, int srcX, int srcY, Piece** board[])
 {
 	board[destX][destY] = board[srcX][srcY];
 	//board[srcX][srcY] = new NullPiece();
