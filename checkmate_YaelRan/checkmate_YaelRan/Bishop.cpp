@@ -24,13 +24,13 @@ bool Bishop::IsMoveLegal(const int destX, const int destY, const int srcX, const
 		return legal;
 	}
 
-	if (whitePlays && board[destX][destY]->GetName() == toupper(board[destX][destY]->GetName())) // for white, dest piece is also white
+	if (whitePlays && board[destY][destX]->GetName() == toupper(board[destY][destX]->GetName())) // for white, dest piece is also white
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	else if (!whitePlays && board[destX][destY]->GetName() != toupper(board[destX][destY]->GetName()))// for black, dest piece is also black
+	else if (!whitePlays && board[destY][destX]->GetName() != toupper(board[destY][destX]->GetName()))// for black, dest piece is also black
 	{
 		result = PIECE_DST;
 		return legal;
@@ -108,7 +108,7 @@ bool Bishop::MoveRightTop(const int destX, const int destY, const int srcX, cons
 	j = srcX;
 	for (i = srcY; i < destY ; i++ , j ++)
 	{
-		if (board[j][i]->GetName() != '#')
+		if (board[i][j]->GetName() != '#')
 		{
 			return false;
 		}
@@ -124,7 +124,7 @@ bool Bishop::MoveRightBot(const int destX, const int destY, const int srcX, cons
 	j = srcX;
 	for (i = srcY; i > destY; i--, j++)
 	{
-		if (board[j][i]->GetName() != '#')
+		if (board[i][j]->GetName() != '#')
 		{
 			return false;
 		}
@@ -141,7 +141,7 @@ bool Bishop::MoveLeftTop(const int destX, const int destY, const int srcX, const
 	j = srcX;
 	for (i = srcY; i < destY; i++, j--)
 	{
-		if (board[j][i]->GetName() != '#')
+		if (board[i][j]->GetName() != '#')
 		{
 			return false;
 		}
@@ -158,7 +158,7 @@ bool Bishop::MoveLeftBot(const int destX, const int destY, const int srcX, const
 	j = srcX;
 	for (i = srcY; i > destY; i--, j--)
 	{
-		if (board[j][i]->GetName() != '#')
+		if (board[i][j]->GetName() != '#')
 		{
 			return false;
 		}

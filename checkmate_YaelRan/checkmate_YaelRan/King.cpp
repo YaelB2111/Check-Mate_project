@@ -19,19 +19,19 @@ bool King::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 		name = toupper(name);
 	}
 
-	if (name != board[srcX][srcY]->GetName()) // no piece in source or not right team
+	if (name != board[srcY][srcX]->GetName()) // no piece in source or not right team
 	{
 		result = NO_PIECE_SRC;
 		return legal;
 	}
 
-	if (whitePlays && board[destX][destY]->GetName() != tolower(board[destX][destY]->GetName()))// if white eats white
+	if (whitePlays && board[destY][destX]->GetName() != tolower(board[destY][destX]->GetName()))// if white eats white
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	else if (!whitePlays && board[destX][destY]->GetName() != toupper(board[destX][destY]->GetName())) // if black eats black
+	else if (!whitePlays && board[destY][destX]->GetName() != toupper(board[destY][destX]->GetName())) // if black eats black
 	{
 		result = PIECE_DST;
 		return legal;

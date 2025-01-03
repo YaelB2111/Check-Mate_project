@@ -18,19 +18,19 @@ bool Queen::IsMoveLegal(const int destX, const int destY, const int srcX, const 
 	{
 		name = toupper(name); // white is caps (Q)
 	}
-	if (name != board[srcX][srcY]->GetName()) // player with with a piece thats not his
+	if (name != board[srcY][srcX]->GetName()) // player with with a piece thats not his
 	{
 		result = NO_PIECE_SRC;
 		return legal;
 	}
 
-	if (whitePlays && board[destX][destY]->GetName() == toupper(board[destX][destY]->GetName())) // for white, dest piece is also white
+	if (whitePlays && board[destY][destX]->GetName() == toupper(board[destY][destX]->GetName())) // for white, dest piece is also white
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	else if (!whitePlays && board[destX][destY]->GetName() != toupper(board[destX][destY]->GetName()))// for black, dest piece is also black
+	else if (!whitePlays && board[destY][destX]->GetName() != toupper(board[destY][destX]->GetName()))// for black, dest piece is also black
 	{
 		result = PIECE_DST;
 		return legal;
@@ -131,7 +131,7 @@ bool Queen::IsLegalForward(const int destY, const int srcX, const int srcY, cons
 
 	for (i = srcY; i < destY && !legal; i++)
 	{
-		if (board[srcX][i]->GetName() != '#')
+		if (board[i][srcX]->GetName() != '#')
 		{
 			legal = false;
 		}
@@ -147,7 +147,7 @@ bool Queen::IsLegalBackward(const int destY, const int srcX, const int srcY, con
 
 	for (i = srcY; i > destY && !legal; i--)
 	{
-		if (board[srcX][i]->GetName() != '#')
+		if (board[i][srcX]->GetName() != '#')
 		{
 			legal = false;
 		}
@@ -162,7 +162,7 @@ bool Queen::IsLegalRight(const int destX, const int srcX, const int srcY, const 
 
 	for (i = srcX; i < destX && !legal; i++)
 	{
-		if (board[i][srcY]->GetName() != '#')
+		if (board[srcY][i]->GetName() != '#')
 		{
 			legal = false;
 		}
@@ -177,7 +177,7 @@ bool Queen::IsLegalLeft(const int destX, const int srcX, const int srcY, const P
 
 	for (i = srcX; i > destX && !legal; i--)
 	{
-		if (board[i][srcY]->GetName() != '#')
+		if (board[srcY][i]->GetName() != '#')
 		{
 			legal = false;
 		}
@@ -193,7 +193,7 @@ bool Queen::MoveRightTop(const int destX, const int destY, const int srcX, const
 	j = srcX;
 	for (i = srcY; i < destY; i++, j++)
 	{
-		if (board[j][i]->GetName() != '#')
+		if (board[i][j]->GetName() != '#')
 		{
 			return false;
 		}
@@ -209,7 +209,7 @@ bool Queen::MoveRightBot(const int destX, const int destY, const int srcX, const
 	j = srcX;
 	for (i = srcY; i > destY; i--, j++)
 	{
-		if (board[j][i]->GetName() != '#')
+		if (board[i][j]->GetName() != '#')
 		{
 			return false;
 		}
@@ -225,7 +225,7 @@ bool Queen::MoveLeftTop(const int destX, const int destY, const int srcX, const 
 	j = srcX;
 	for (i = srcY; i < destY; i++, j--)
 	{
-		if (board[j][i]->GetName() != '#')
+		if (board[i][j]->GetName() != '#')
 		{
 			return false;
 		}
@@ -241,7 +241,7 @@ bool Queen::MoveLeftBot(const int destX, const int destY, const int srcX, const 
 	j = srcX;
 	for (i = srcY; i > destY; i--, j--)
 	{
-		if (board[j][i]->GetName() != '#')
+		if (board[i][j]->GetName() != '#')
 		{
 			return false;
 		}

@@ -42,11 +42,12 @@ bool Piece::IsSelfCheck(const int srcX, const int srcY, const Piece** board[], c
 		lettterToFind = 'k'; // to lower
 	}
 
+	//find king
 	for (i = 0; i < rows; i++)
 	{
 		for (j = 0; j < cols; j++)
 		{
-			if (board[j][i]->_name == lettterToFind)
+			if (board[i][j]->_name == lettterToFind)
 			{
 				kingX = j;
 				kingY = i;

@@ -19,19 +19,19 @@ bool Knight::IsMoveLegal(const int destX, const int destY, const int srcX, const
 		name = toupper(name);
 	}
 
-	if (name != board[srcX][srcY]->GetName()) // dest is empty or the other team's piece
+	if (name != board[srcY][srcX]->GetName()) // dest is empty or the other team's piece
 	{
 		result = NO_PIECE_SRC;
 		return legal;
 	}
 	
-	if (whitePlays && board[destX][destY]->GetName() != tolower(board[destX][destY]->GetName())) // if white tries to eats white
+	if (whitePlays && board[destY][destX]->GetName() != tolower(board[destY][destX]->GetName())) // if white tries to eats white
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	else if (!whitePlays && board[destX][destY]->GetName() != toupper(board[destX][destY]->GetName()))// if black tries to eats black
+	else if (!whitePlays && board[destY][destX]->GetName() != toupper(board[destY][destX]->GetName()))// if black tries to eats black
 	{
 		result = PIECE_DST;
 		return legal;
