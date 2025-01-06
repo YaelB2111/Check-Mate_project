@@ -24,13 +24,13 @@ bool Queen::IsMoveLegal(const int destX, const int destY, const int srcX, const 
 		return legal;
 	}
 
-	if (whitePlays && board[destY][destX]->GetName() == toupper(board[destY][destX]->GetName())) // for white, dest piece is also white
+	if (board[destY][destX]->GetName() != '#' && whitePlays && board[destY][destX]->GetName() == toupper(board[destY][destX]->GetName())) // for white, dest piece is also white
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	else if (!whitePlays && board[destY][destX]->GetName() != toupper(board[destY][destX]->GetName()))// for black, dest piece is also black
+	else if (board[destY][destX]->GetName() != '#' && !whitePlays && board[destY][destX]->GetName() != toupper(board[destY][destX]->GetName()))// for black, dest piece is also black
 	{
 		result = PIECE_DST;
 		return legal;

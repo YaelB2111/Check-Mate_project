@@ -23,14 +23,14 @@ bool LogicalClac::isPawnCheck(const int kingX, const int kingY, const bool whosT
 	//pawn check
 	if (whosTurn) //white played - black king check
 	{
-		if (kingY < SIDE_SIZE - 1 && kingX < SIDE_SIZE - 1 && kingX > 0 && board[kingX + 1][kingY - 1]->GetName() == 'P' || board[kingX - 1][kingY - 1]->GetName() == 'P')
+		if (kingY > 0 && kingY < SIDE_SIZE - 1 && kingX < SIDE_SIZE - 1 && kingX > 0 && (board[kingY - 1][kingX + 1]->GetName() == 'P' || board[kingY - 1][kingX - 1]->GetName() == 'P'))
 		{
 			return true;
 		}
 	}
 	else //black played - white king check
 	{
-		if (kingY < SIDE_SIZE - 1 && kingX < SIDE_SIZE - 1 && kingX > 0 && board[kingX + 1][kingY + 1]->GetName() == 'p' || board[kingX - 1][kingY + 1]->GetName() == 'p')
+		if (kingY > 0 && kingY < SIDE_SIZE - 1 && kingX < SIDE_SIZE - 1 && kingX > 0 && (board[kingY + 1][kingX + 1]->GetName() == 'p' || board[kingY + 1][kingX - 1]->GetName() == 'p'))
 		{
 			return true;
 		}
@@ -41,10 +41,10 @@ bool LogicalClac::isPawnCheck(const int kingX, const int kingY, const bool whosT
 bool LogicalClac::isKnightnCheck(const int kingX, const int kingY, const char knight, Piece*** board)
 {
 	//knightCheck - checks all the 8 possible knight check positions, (and make sure no index out of range occures) 
-	if ((kingX < SIDE_SIZE - 2 && kingY > 0 && kingY < SIDE_SIZE	&&	 (board[kingX + 2][kingY + 1]->GetName() == knight || board[kingX + 2][kingY - 1]->GetName() == knight) ||
-		kingX >= 2 && kingY > 0 && kingY < SIDE_SIZE				&&	 (board[kingX - 2][kingY + 1]->GetName() == knight || board[kingX - 2][kingY - 1]->GetName() == knight) ||
-		kingY < SIDE_SIZE - 2 && kingX > 0 && kingX < SIDE_SIZE		&&	 (board[kingX + 1][kingY + 2]->GetName() == knight || board[kingX - 1][kingY + 2]->GetName() == knight) ||
-		kingY >= 2 && kingX > 0 && kingX < SIDE_SIZE				&&	 (board[kingX + 1][kingY - 2]->GetName() == knight || board[kingX - 1][kingY - 2]->GetName() == knight)))
+	if ((kingX < SIDE_SIZE - 2 && kingY > 0 && kingY < SIDE_SIZE - 1	&&	 (board[kingY + 1][kingX + 2]->GetName() == knight || board[kingY - 1][kingX + 2]->GetName() == knight) ||
+		kingX >= 2 && kingY > 0 && kingY < SIDE_SIZE - 1				&&	 (board[kingY + 1][kingX - 2]->GetName() == knight || board[kingY - 1][kingX - 2]->GetName() == knight) ||
+		kingY < SIDE_SIZE - 2 && kingX > 0 && kingX < SIDE_SIZE - 1		&&	 (board[kingY + 2][kingX + 1]->GetName() == knight || board[kingY + 2][kingX - 1]->GetName() == knight) ||
+		kingY >= 2 && kingX > 0 && kingX < SIDE_SIZE - 1				&&	 (board[kingY - 2][kingX + 1]->GetName() == knight || board[kingY - 2][kingX - 1]->GetName() == knight)))
 	{
 		return true;
 	}
@@ -60,10 +60,10 @@ bool LogicalClac::isStrightDiagnleCheck(const int kingX, const int kingY, const 
 	{
 		if (kingX + i < SIDE_SIZE && kingY + i < SIDE_SIZE && kingY - i >= 0) //right checks
 		{
-			if (rightStright && board[kingX + i][kingY]->GetName() != '#') //checks if not blocked already and not NullPiece
+			if (rightStright && board[kingY][kingX + i]->GetName() != '#') //checks if not blocked already and not NullPiece
 			{
 				rightStright = false;
-				if (board[kingX + i][kingY]->GetName() == queen || board[kingX + i][kingY]->GetName() == rook) //stright
+				if (board[kingY][kingX + i]->GetName() == queen || board[kingY][kingX + i]->GetName() == rook) //stright
 				{
 					return true;
 				}
@@ -71,10 +71,10 @@ bool LogicalClac::isStrightDiagnleCheck(const int kingX, const int kingY, const 
 		}
 		if (kingX - i >= 0 && kingY + i < SIDE_SIZE && kingY - i >= 0) //left checks
 		{
-			if (leftStright && board[kingX - i][kingY]->GetName() != '#')  //checks if not blocked already and not NullPiece
+			if (leftStright && board[kingY][kingX - i]->GetName() != '#')  //checks if not blocked already and not NullPiece
 			{
 				leftStright = false;
-				if (board[kingX - i][kingY]->GetName() == queen || board[kingX - i][kingY]->GetName() == rook) //stright
+				if (board[kingY][kingX - i]->GetName() == queen || board[kingY][kingX - i]->GetName() == rook) //stright
 				{
 					return true;
 				}
@@ -82,26 +82,26 @@ bool LogicalClac::isStrightDiagnleCheck(const int kingX, const int kingY, const 
 		}
 		if (kingY + i < SIDE_SIZE && kingX + i < SIDE_SIZE && kingX - i >= 0) //up checks
 		{
-			if (upStright && board[kingX][kingY + i]->GetName() != '#') //checks if not blocked already and not NullPiece
+			if (upStright && board[kingY + i][kingX]->GetName() != '#') //checks if not blocked already and not NullPiece
 			{
 				upStright = false;
-				if (board[kingX][kingY + i]->GetName() == queen || board[kingX][kingY + i]->GetName() == rook) //stright
+				if (board[kingY + i][kingX]->GetName() == queen || board[kingY + i][kingX]->GetName() == rook) //stright
 				{
 					return true;
 				}
 			}
-			if (upDiagLeft && board[kingX - i][kingY + i]->GetName() != '#') //checks if not blocked already and not NullPiece
+			if (upDiagLeft && board[kingY + i][kingX - i]->GetName() != '#') //checks if not blocked already and not NullPiece
 			{
 				upDiagLeft = false;
-				if (board[kingX - i][kingY + i]->GetName() == queen || board[kingX - i][kingY + i]->GetName() == bishop) //diagnle left
+				if (board[kingY + i][kingX - i]->GetName() == queen || board[kingY + i][kingX - i]->GetName() == bishop) //diagnle left
 				{
 					return true;
 				}
 			}
-			if (upDiagRight && board[kingX + i][kingY + i]->GetName() != '#') //checks if not blocked already and not NullPiece
+			if (upDiagRight && board[kingY + i][kingX + i]->GetName() != '#') //checks if not blocked already and not NullPiece
 			{
 				upDiagRight = false;
-				if (board[kingX + i][kingY + i]->GetName() == queen || board[kingX + i][kingY + i]->GetName() == bishop) //diagnle right
+				if (board[kingY + i][kingX + i]->GetName() == queen || board[kingY + i][kingX + i]->GetName() == bishop) //diagnle right
 				{
 					return true;
 				}
@@ -110,26 +110,26 @@ bool LogicalClac::isStrightDiagnleCheck(const int kingX, const int kingY, const 
 		}
 		if (kingY - i >= 0 && kingX + i < SIDE_SIZE && kingX - i >= 0) //down checks
 		{
-			if (downStright && board[kingX][kingY - i]->GetName() != '#') //checks if not blocked already and not NullPiece
+			if (downStright && board[kingY - i][kingX]->GetName() != '#') //checks if not blocked already and not NullPiece
 			{
 				downStright = false;
-				if (board[kingX][kingY - i]->GetName() == queen || board[kingX][kingY - i]->GetName() == rook) //stright
+				if (board[kingY - i][kingX]->GetName() == queen || board[kingY - i][kingX]->GetName() == rook) //stright
 				{
 					return true;
 				}
 			}
-			if (downDiagRight && board[kingX + i][kingY - i]->GetName() != '#') //checks if not blocked already and not NullPiece
+			if (downDiagRight && board[kingY - i][kingX + i]->GetName() != '#') //checks if not blocked already and not NullPiece
 			{
 				downDiagRight = false;
-				if (board[kingX + i][kingY - i]->GetName() == queen || board[kingX + i][kingY - i]->GetName() == bishop) //diagnle right
+				if (board[kingY - i][kingX + i]->GetName() == queen || board[kingY - i][kingX + i]->GetName() == bishop) //diagnle right
 				{
 					return true;
 				}
 			}
-			if (downDiagLeft && board[kingX - i][kingY - i]->GetName() != '#') //checks if not blocked already and not NullPiece)
+			if (downDiagLeft && board[kingY - i][kingX - i]->GetName() != '#') //checks if not blocked already and not NullPiece)
 			{
 				downDiagLeft = false;
-				if (board[kingX - i][kingY - i]->GetName() == queen || board[kingX - i][kingY - i]->GetName() == bishop) //diagnle left
+				if (board[kingY - i][kingX - i]->GetName() == queen || board[kingY - i][kingX - i]->GetName() == bishop) //diagnle left
 				{
 					return true;
 				}
