@@ -18,19 +18,19 @@ bool Bishop::IsMoveLegal(const int destX, const int destY, const int srcX, const
 	{
 		name = toupper(name); // white is caps (B)
 	}
-	if (name != board[srcX][srcY]->GetName()) // player with with a piece thats not his
+	if (name != board[srcY][srcX]->GetName()) // player with with a piece thats not his
 	{
 		result = NO_PIECE_SRC;
 		return legal;
 	}
 
-	if (whitePlays && board[destY][destX]->GetName() == toupper(board[destY][destX]->GetName())) // for white, dest piece is also white
+	if (board[destY][destX]->GetName() != '#' && whitePlays && board[destY][destX]->GetName() == toupper(board[destY][destX]->GetName())) // for white, dest piece is also white
 	{
 		result = PIECE_DST;
 		return legal;
 	}
 
-	else if (!whitePlays && board[destY][destX]->GetName() != toupper(board[destY][destX]->GetName()))// for black, dest piece is also black
+	else if (board[destY][destX]->GetName() != '#' && !whitePlays && board[destY][destX]->GetName() != toupper(board[destY][destX]->GetName()))// for black, dest piece is also black
 	{
 		result = PIECE_DST;
 		return legal;
@@ -105,8 +105,8 @@ bool Bishop::MoveRightTop(const int destX, const int destY, const int srcX, cons
 	int i = 0, j = 0;
 	bool legal = true;
 
-	j = srcX;
-	for (i = srcY; i < destY ; i++ , j ++)
+	j = srcX + 1;
+	for (i = srcY+1; i < destY ; i++ , j ++)
 	{
 		if (board[i][j]->GetName() != '#')
 		{
@@ -121,8 +121,8 @@ bool Bishop::MoveRightBot(const int destX, const int destY, const int srcX, cons
 	int i = 0, j = 0;
 	bool legal = true;
 
-	j = srcX;
-	for (i = srcY; i > destY; i--, j++)
+	j = srcX + 1; //need to be fixed
+	for (i = srcY - 1; i > destY; i--, j++)
 	{
 		if (board[i][j]->GetName() != '#')
 		{
@@ -138,8 +138,8 @@ bool Bishop::MoveLeftTop(const int destX, const int destY, const int srcX, const
 	int i = 0, j = 0;
 	bool legal = true;
 
-	j = srcX;
-	for (i = srcY; i < destY; i++, j--)
+	j = srcX - 1;
+	for (i = srcY + 1; i < destY; i++, j--)
 	{
 		if (board[i][j]->GetName() != '#')
 		{
@@ -155,8 +155,8 @@ bool Bishop::MoveLeftBot(const int destX, const int destY, const int srcX, const
 	int i = 0, j = 0;
 	bool legal = true;
 
-	j = srcX;
-	for (i = srcY; i > destY; i--, j--)
+	j = srcX -1;
+	for (i = srcY - 1; i > destY; i--, j--)
 	{
 		if (board[i][j]->GetName() != '#')
 		{
