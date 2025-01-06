@@ -19,11 +19,11 @@ public:
 	~Game(); //d'tor
 	void TryMove(const int x1, const int y1, const int x2, const int y2);
 	std::string boardState() const;
-	//manageGame - probably useless
-	bool isCheck();
+	bool isCheck(int srcX, int srcY);
 	Piece*** getBoard() const;
 	bool getWhosTurn() const;
 	void changeTurn();
+	void nullPtrReplce();
 
 private:
 	unsigned int _side;

@@ -112,33 +112,43 @@ std::string Game::boardState() const
 	return rStr;
 }
 
-bool Game::isCheck()
+bool Game::isCheck(int srcX, int srcY)
 {
-	char checkedKing = !this->_playsTurn ? 'K' : 'k', knight = this->_playsTurn ? 'N' : 'n', queen = this->_playsTurn ? 'Q' : 'q', 
-	rook = this->_playsTurn ? 'R' : 'r', bishop = this->_playsTurn ? 'B' : 'b', pawn = this->_playsTurn ? 'P' : 'p'; //change the true/false upper/lower to match the turn if needed
+	char checkedKing = !this->_playsTurn ? 'k' : 'K', knight = this->_playsTurn ? 'n' : 'N', queen = this->_playsTurn ? 'q' : 'Q',
+	rook = this->_playsTurn ? 'r' : 'R', bishop = this->_playsTurn ? 'b' : 'B', pawn = this->_playsTurn ? 'p' : 'P'; //change the true/false upper/lower to match the turn if needed
 	
-	int i = 0, j = 0, kingX = 0, kingY = 0, xCpy = kingX, yCpy = kingY;
+	int i = 0, j = 0, kingX = 0, kingY = 0;
+    Piece* temp = this->_pieces[srcY][srcX];
+    this->_pieces[srcY][srcX] = new NullPiece();
 	
 	LogicalClac::findKingCordinates(kingX, kingY, checkedKing, this->_pieces); //find the cordinates of the prefered king
 	
 	//pawn check (check 2 possible check positions, and make sure no index out of range occures)
 	if (LogicalClac::isPawnCheck(kingX, kingY, this->_playsTurn, this->_pieces)) 
 	{
+        free(this->_pieces[srcY][srcX]);
+        this->_pieces[srcY][srcX] = temp;
 		return true;
 	}
 
 	//knightCheck - checks all the 8 possible knight check positions, (and make sure no index out of range occures) 
 	if (LogicalClac::isKnightnCheck(kingX, kingY, knight, this->_pieces))
 	{
+        free(this->_pieces[srcY][srcX]);
+        this->_pieces[srcY][srcX] = temp;
 		return true;
 	}
 	
 	//knightCheck - checks all the 8 possible stright/diagnle check positions, (and make sure no index out of range occures) 
 	if (LogicalClac::isStrightDiagnleCheck(kingX, kingY, queen, rook, bishop, this->_pieces))
 	{
+        free(this->_pieces[srcY][srcX]);
+        this->_pieces[srcY][srcX] = temp;
 		return true;
 	}
 
+    free(this->_pieces[srcY][srcX]);
+    this->_pieces[srcY][srcX] = temp;
 	return false;
 }
 
