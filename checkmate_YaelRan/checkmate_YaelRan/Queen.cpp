@@ -129,7 +129,7 @@ bool Queen::IsLegalForward(const int destY, const int srcX, const int srcY, cons
 	int i = 0;
 	bool legal = true;
 
-	for (i = srcY + 1; i <= destY && legal; i++)
+	for (i = srcY + 1; i < destY && legal; i++)
 	{
 		if (board[i][srcX]->GetName() != '#')
 		{
@@ -145,7 +145,7 @@ bool Queen::IsLegalBackward(const int destY, const int srcX, const int srcY, con
 	int i = 0;
 	bool legal = true;
 
-	for (i = srcY + 1; i >= destY && legal; i--)
+	for (i = srcY + 1; i > destY && legal; i--)
 	{
 		if (board[i][srcX]->GetName() != '#')
 		{
@@ -160,7 +160,7 @@ bool Queen::IsLegalRight(const int destX, const int srcX, const int srcY, const 
 	int i = 0;
 	bool legal = true;
 
-	for (i = srcX + 1; i <= destX && legal; i++)
+	for (i = srcX + 1; i < destX && legal; i++)
 	{
 		if (board[srcY][i]->GetName() != '#')
 		{
@@ -175,7 +175,7 @@ bool Queen::IsLegalLeft(const int destX, const int srcX, const int srcY, const P
 	int i = 0;
 	bool legal = true;
 
-	for (i = srcX + 1 ; i >= destX && legal; i--)
+	for (i = srcX + 1 ; i > destX && legal; i--)
 	{
 		if (board[srcY][i]->GetName() != '#')
 		{
@@ -191,7 +191,7 @@ bool Queen::MoveRightTop(const int destX, const int destY, const int srcX, const
 	bool legal = true;
 
 	j = srcX + 1;
-	for (i = srcY + 1; i <= destY; i++, j++)
+	for (i = srcY + 1; i < destY; i++, j++)
 	{
 		if (board[i][j]->GetName() != '#')
 		{
@@ -207,7 +207,7 @@ bool Queen::MoveRightBot(const int destX, const int destY, const int srcX, const
 	bool legal = true;
 
 	j = srcX + 1;
-	for (i = srcY - 1; i >= destY; i--, j++)
+	for (i = srcY - 1; i > destY; i--, j++)
 	{
 		if (board[i][j]->GetName() != '#')
 		{
@@ -223,7 +223,7 @@ bool Queen::MoveLeftTop(const int destX, const int destY, const int srcX, const 
 	bool legal = true;
 
 	j = srcX - 1;
-	for (i = srcY + 1; i <= destY; i++, j--)
+	for (i = srcY + 1; i < destY; i++, j--)
 	{
 		if (board[i][j]->GetName() != '#')
 		{
@@ -239,7 +239,7 @@ bool Queen::MoveLeftBot(const int destX, const int destY, const int srcX, const 
 	bool legal = true;
 
 	j = srcX - 1;
-	for (i = srcY - 1; i >= destY; i--, j--)
+	for (i = srcY - 1; i > destY; i--, j--)
 	{
 		if (board[i][j]->GetName() != '#')
 		{
