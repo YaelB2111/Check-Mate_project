@@ -58,7 +58,7 @@ bool LogicalClac::isStrightDiagnleCheck(const int kingX, const int kingY, const 
 		upDiagRight = true, upDiagLeft = true, downDiagRight = true, downDiagLeft = true;
 	for (i = 1; i < SIDE_SIZE; i++) //quenn, rook & bishop check
 	{
-		if (kingX + i < SIDE_SIZE && kingY + i < SIDE_SIZE && kingY - i >= 0) //right checks
+		if (kingX + i < SIDE_SIZE) //right checks
 		{
 			if (rightStright && board[kingY][kingX + i]->GetName() != '#') //checks if not blocked already and not NullPiece
 			{
@@ -69,7 +69,7 @@ bool LogicalClac::isStrightDiagnleCheck(const int kingX, const int kingY, const 
 				}
 			}
 		}
-		if (kingX - i >= 0 && kingY + i < SIDE_SIZE && kingY - i >= 0) //left checks
+		if (kingX - i >= 0) //left checks
 		{
 			if (leftStright && board[kingY][kingX - i]->GetName() != '#')  //checks if not blocked already and not NullPiece
 			{
@@ -80,7 +80,7 @@ bool LogicalClac::isStrightDiagnleCheck(const int kingX, const int kingY, const 
 				}
 			}
 		}
-		if (kingY + i < SIDE_SIZE && kingX + i < SIDE_SIZE && kingX - i >= 0) //up checks
+		if (kingY + i < SIDE_SIZE) //up checks
 		{
 			if (upStright && board[kingY + i][kingX]->GetName() != '#') //checks if not blocked already and not NullPiece
 			{
@@ -90,7 +90,7 @@ bool LogicalClac::isStrightDiagnleCheck(const int kingX, const int kingY, const 
 					return true;
 				}
 			}
-			if (upDiagLeft && board[kingY + i][kingX - i]->GetName() != '#') //checks if not blocked already and not NullPiece
+			if (kingX - i >= 0 && upDiagLeft && board[kingY + i][kingX - i]->GetName() != '#') //checks if not blocked already and not NullPiece
 			{
 				upDiagLeft = false;
 				if (board[kingY + i][kingX - i]->GetName() == queen || board[kingY + i][kingX - i]->GetName() == bishop) //diagnle left
@@ -98,7 +98,7 @@ bool LogicalClac::isStrightDiagnleCheck(const int kingX, const int kingY, const 
 					return true;
 				}
 			}
-			if (upDiagRight && board[kingY + i][kingX + i]->GetName() != '#') //checks if not blocked already and not NullPiece
+			if (kingX + i < SIDE_SIZE && upDiagRight && board[kingY + i][kingX + i]->GetName() != '#') //checks if not blocked already and not NullPiece
 			{
 				upDiagRight = false;
 				if (board[kingY + i][kingX + i]->GetName() == queen || board[kingY + i][kingX + i]->GetName() == bishop) //diagnle right
@@ -108,7 +108,7 @@ bool LogicalClac::isStrightDiagnleCheck(const int kingX, const int kingY, const 
 			}
 			
 		}
-		if (kingY - i >= 0 && kingX + i < SIDE_SIZE && kingX - i >= 0) //down checks
+		if (kingY - i >= 0) //down checks
 		{
 			if (downStright && board[kingY - i][kingX]->GetName() != '#') //checks if not blocked already and not NullPiece
 			{
@@ -118,7 +118,7 @@ bool LogicalClac::isStrightDiagnleCheck(const int kingX, const int kingY, const 
 					return true;
 				}
 			}
-			if (downDiagRight && board[kingY - i][kingX + i]->GetName() != '#') //checks if not blocked already and not NullPiece
+			if (kingX + i < SIDE_SIZE && downDiagRight && board[kingY - i][kingX + i]->GetName() != '#') //checks if not blocked already and not NullPiece
 			{
 				downDiagRight = false;
 				if (board[kingY - i][kingX + i]->GetName() == queen || board[kingY - i][kingX + i]->GetName() == bishop) //diagnle right
@@ -126,7 +126,7 @@ bool LogicalClac::isStrightDiagnleCheck(const int kingX, const int kingY, const 
 					return true;
 				}
 			}
-			if (downDiagLeft && board[kingY - i][kingX - i]->GetName() != '#') //checks if not blocked already and not NullPiece)
+			if (kingX - i >= 0 && downDiagLeft && board[kingY - i][kingX - i]->GetName() != '#') //checks if not blocked already and not NullPiece)
 			{
 				downDiagLeft = false;
 				if (board[kingY - i][kingX - i]->GetName() == queen || board[kingY - i][kingX - i]->GetName() == bishop) //diagnle left
