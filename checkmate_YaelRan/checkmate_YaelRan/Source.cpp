@@ -73,6 +73,7 @@ void main()
 					pawn->SetMoved();
 				}
 				game.getBoard()[srcY][srcX]->MovePlace(dstX, dstY, srcX, srcY, game.getBoard());
+				game.nullPtrReplce();
 				game.changeTurn();
 				if (game.isCheck(srcX, srcY, dstX, dstY, false)) //checking if check is occuring
 				{
@@ -80,7 +81,7 @@ void main()
 				}
 			}
 		}
-		game.nullPtrReplce();
+		
 		strcpy_s(msgToGraphics, to_string(resultCode).c_str()); // msgToGraphics should contain the result of the operation
 
 		// return result to graphics		
