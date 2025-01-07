@@ -59,7 +59,7 @@ void main()
 	while (msgFromGraphics != "quit")
 	{
 		LogicalClac::convertMsgToCordinates(msgFromGraphics, srcX, srcY, dstX, dstY);
-		if (game.getBoard()[srcY][srcX]->IsMoveLegal(dstX, dstY, srcX, srcY, (const Piece***)game.getBoard(), resultCode, game.getWhosTurn()))
+		if (game.getBoard()[srcY][srcX]->IsMoveLegal(dstX, dstY, srcX, srcY, (const Piece***)game.getBoard(), resultCode, game.getWhosTurn(), true))
 		{
 			if (game.isCheck(srcX, srcY, dstX, dstY))
 			{

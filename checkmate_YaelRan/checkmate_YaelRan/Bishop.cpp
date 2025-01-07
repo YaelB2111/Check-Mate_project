@@ -8,7 +8,7 @@ Bishop::~Bishop()
 {
 }
 
-bool Bishop::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece** board[], int& result, bool whitePlays)
+bool Bishop::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece** board[], int& result, bool whitePlays, bool move)
 {
 	char name = 'b';
 	bool legal = false;
@@ -36,7 +36,7 @@ bool Bishop::IsMoveLegal(const int destX, const int destY, const int srcX, const
 		return legal;
 	}
 
-	if (IsSelfCheck(srcX, srcY, board, whitePlays)) // self check
+	if (move && IsSelfCheck(srcX, srcY, board, whitePlays)) // self check
 	{
 		result = SELF_CHECK;
 		return legal;

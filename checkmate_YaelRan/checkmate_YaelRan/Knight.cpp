@@ -8,7 +8,7 @@ Knight::~Knight()
 {
 }
 
-bool Knight::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece** board[], int& result, bool whitePlays)
+bool Knight::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece** board[], int& result, bool whitePlays, bool move)
 {
 	char name = 'n';
 	bool legal = false;
@@ -64,7 +64,7 @@ bool Knight::IsMoveLegal(const int destX, const int destY, const int srcX, const
 
 	whitePlays = !whitePlays;
 	legal = true;
-	if (IsSelfCheck(srcX, srcY, board, whitePlays))
+	if (move && IsSelfCheck(srcX, srcY, board, whitePlays))
 	{
 		result = TO_CHECK_MOVE;
 		return legal;

@@ -14,7 +14,7 @@ void Pawn::SetMoved()
 	this->_moved = true;
 }
 
-bool Pawn::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece*** board, int& result, bool whitePlays)
+bool Pawn::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece*** board, int& result, bool whitePlays, bool move)
 {
 	char name = 'p';
 	bool legal = false;
@@ -43,11 +43,11 @@ bool Pawn::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 		return legal;
 	}
 
-	//if (IsSelfCheck(srcX, srcY, board, whitePlays)) // self check
-	//{
-	//	result = SELF_CHECK;
-	//	return legal;
-	//}
+	if (move && IsSelfCheck(srcX, srcY, board, whitePlays)) // self check
+	{
+		result = SELF_CHECK;
+		return legal;
+	}
 
 	if (destX >= boardSize || srcX >= boardSize || destY >= boardSize || srcY >= boardSize) // out of board
 	{

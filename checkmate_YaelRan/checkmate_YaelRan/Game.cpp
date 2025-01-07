@@ -90,7 +90,7 @@ void Game::TryMove(int x1, int y1, int x2, int y2)
 	Piece* piececToSwap = this->_pieces[x2][y2];
 	Piece* temp = piececToMove;
 	int rCode = 0;
-	if (piececToMove->IsMoveLegal(x1, y1, x2, y2, (const Piece***)this->_pieces, rCode, this->_playsTurn))
+	if (piececToMove->IsMoveLegal(x1, y1, x2, y2, (const Piece***)this->_pieces, rCode, this->_playsTurn, true))
 	{
 		piececToMove = piececToSwap;
 		piececToSwap = temp;

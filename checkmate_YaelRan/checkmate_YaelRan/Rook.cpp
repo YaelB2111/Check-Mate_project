@@ -8,7 +8,7 @@ Rook::~Rook()
 {
 }
 
-bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece** board[], int& result, bool whitePlays)
+bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece** board[], int& result, bool whitePlays, bool move)
 {
 	char name = 'r';
 	bool legal = false;
@@ -36,7 +36,7 @@ bool Rook::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 		return legal;
 	}
 
-	if (IsSelfCheck(srcX, srcY, board, whitePlays)) // self check
+	if (move && IsSelfCheck(srcX, srcY, board, whitePlays)) // self check
 	{
 		result = SELF_CHECK;
 		return legal;

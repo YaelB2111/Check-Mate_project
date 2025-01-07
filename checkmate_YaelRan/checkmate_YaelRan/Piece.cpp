@@ -59,7 +59,7 @@ bool Piece::IsSelfCheck(const int srcX, const int srcY, const Piece** board[], c
 	{
 		for (j = 0; j < cols && !selfCheck; j++)
 		{
-			if (IsMoveLegal(j, i, kingX, kingY, board, result, whitePlays) == true)
+			if (IsMoveLegal(kingX, kingY, j, i, board, result, whitePlays, false) == true)
 			{
 				selfCheck = true;
 			}
