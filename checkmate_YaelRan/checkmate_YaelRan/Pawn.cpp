@@ -43,11 +43,11 @@ bool Pawn::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 		return legal;
 	}
 
-	if (IsSelfCheck(srcX, srcY, board, whitePlays)) // self check
-	{
-		result = SELF_CHECK;
-		return legal;
-	}
+	//if (IsSelfCheck(srcX, srcY, board, whitePlays)) // self check
+	//{
+	//	result = SELF_CHECK;
+	//	return legal;
+	//}
 
 	if (destX >= boardSize || srcX >= boardSize || destY >= boardSize || srcY >= boardSize) // out of board
 	{
@@ -55,7 +55,7 @@ bool Pawn::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 		return legal;
 	}
 
-	if (destY - srcY == 2 && srcX == destX) // for first move
+	if (abs(destY - srcY) == 2 && srcX == destX) // for first move
 	{
 		if (board[destY][destX]->GetName() != '#' || this->_moved)//it cant eat straight and its only for first move
 		{
@@ -93,11 +93,11 @@ bool Pawn::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 	
 	whitePlays = !whitePlays;
 	legal = true;
-	if (IsSelfCheck(srcX, srcY, board, whitePlays))
+	/*if (IsSelfCheck(srcX, srcY, board, whitePlays))
 	{
 		result = TO_CHECK_MOVE;
 		return legal;
-	}
+	}*/
 
 
 	result = VALID_MOVE;
