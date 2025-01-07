@@ -3,6 +3,7 @@
 #include <string>
 #include <cctype>
 
+#define INVALID -1
 #define VALID_MOVE 0
 #define TO_CHECK_MOVE 1
 #define NO_PIECE_SRC 2

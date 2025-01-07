@@ -61,7 +61,7 @@ void main()
 		LogicalClac::convertMsgToCordinates(msgFromGraphics, srcX, srcY, dstX, dstY);
 		if (game.getBoard()[srcY][srcX]->IsMoveLegal(dstX, dstY, srcX, srcY, (const Piece***)game.getBoard(), resultCode, game.getWhosTurn(), true))
 		{
-			if (game.isCheck(srcX, srcY, dstX, dstY))
+			if (game.isCheck(srcX, srcY, dstX, dstY, true))
 			{
 				resultCode = SELF_CHECK;
 			}
@@ -73,11 +73,14 @@ void main()
 					pawn->SetMoved();
 				}
 				game.getBoard()[srcY][srcX]->MovePlace(dstX, dstY, srcX, srcY, game.getBoard());
-				game.nullPtrReplce();
 				game.changeTurn();
+				if (game.isCheck(srcX, srcY, dstX, dstY, false)) //checking if check is occuring
+				{
+					resultCode = TO_CHECK_MOVE;
+				}
 			}
 		}
-		
+		game.nullPtrReplce();
 		strcpy_s(msgToGraphics, to_string(resultCode).c_str()); // msgToGraphics should contain the result of the operation
 
 		// return result to graphics		
