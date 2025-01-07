@@ -2,10 +2,16 @@
 
 Pawn::Pawn(char name) :Piece(name)
 {
+	this->_moved = false;
 }
 
 Pawn::~Pawn()
 {
+}
+
+void Pawn::SetMoved()
+{
+	this->_moved = true;
 }
 
 bool Pawn::IsMoveLegal(const int destX, const int destY, const int srcX, const int srcY, const Piece*** board, int& result, bool whitePlays)
@@ -49,7 +55,16 @@ bool Pawn::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 		return legal;
 	}
 
-	if (!(abs(destY - srcY) == 1 && abs(destX - srcX) <= 1)) // pawn can move 1 up and max 1 to side 
+	if (destY - srcY == 2 && srcX == destX) // for first move
+	{
+		if (board[destY][destX]->GetName() != '#' || this->_moved)//it cant eat straight and its only for first move
+		{
+			result = INVALID_MOVE;
+			return legal;
+		}
+		this->_moved = true;
+	}
+	else if (!(abs(destY - srcY) == 1 && abs(destX - srcX) <= 1)) // pawn can move 1 up and max 1 to side 
 	{
 		result = INVALID_MOVE;
 		return legal;
@@ -75,6 +90,7 @@ bool Pawn::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 		return legal;
 	}
 
+	
 	whitePlays = !whitePlays;
 	legal = true;
 	if (IsSelfCheck(srcX, srcY, board, whitePlays))
