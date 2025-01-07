@@ -21,7 +21,7 @@ void LogicalClac::findKingCordinates(int& kingX, int& kingY, const char checkedK
 bool LogicalClac::isPawnCheck(const int kingX, const int kingY, const bool whosTurn, Piece*** board)
 {
 	//pawn check
-	if (whosTurn) //white played - black king check
+	if (!whosTurn) //white played - black king check
 	{
 		if (kingY > 0 && kingY < SIDE_SIZE - 1 && kingX < SIDE_SIZE - 1 && kingX > 0 && (board[kingY - 1][kingX + 1]->GetName() == 'P' || board[kingY - 1][kingX - 1]->GetName() == 'P'))
 		{
