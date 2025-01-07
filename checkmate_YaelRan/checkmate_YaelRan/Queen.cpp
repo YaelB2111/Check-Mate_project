@@ -145,7 +145,7 @@ bool Queen::IsLegalBackward(const int destY, const int srcX, const int srcY, con
 	int i = 0;
 	bool legal = true;
 
-	for (i = srcY + 1; i > destY && legal; i--)
+	for (i = srcY - 1; i > destY && legal; i--)
 	{
 		if (board[i][srcX]->GetName() != '#')
 		{
@@ -175,7 +175,7 @@ bool Queen::IsLegalLeft(const int destX, const int srcX, const int srcY, const P
 	int i = 0;
 	bool legal = true;
 
-	for (i = srcX + 1 ; i > destX && legal; i--)
+	for (i = srcX - 1 ; i > destX && legal; i--)
 	{
 		if (board[srcY][i]->GetName() != '#')
 		{
