@@ -41,12 +41,49 @@ bool LogicalClac::isPawnCheck(const int kingX, const int kingY, const bool whosT
 bool LogicalClac::isKnightnCheck(const int kingX, const int kingY, const char knight, Piece*** board)
 {
 	//knightCheck - checks all the 8 possible knight check positions, (and make sure no index out of range occures) 
-	if ((kingX < SIDE_SIZE - 2 && kingY > 0 && kingY < SIDE_SIZE - 1	&&	 (board[kingY + 1][kingX + 2]->GetName() == knight || board[kingY - 1][kingX + 2]->GetName() == knight) ||
-		kingX >= 2 && kingY > 0 && kingY < SIDE_SIZE - 1				&&	 (board[kingY + 1][kingX - 2]->GetName() == knight || board[kingY - 1][kingX - 2]->GetName() == knight) ||
-		kingY < SIDE_SIZE - 2 && kingX > 0 && kingX < SIDE_SIZE - 1		&&	 (board[kingY + 2][kingX + 1]->GetName() == knight || board[kingY + 2][kingX - 1]->GetName() == knight) ||
-		kingY >= 2 && kingX > 0 && kingX < SIDE_SIZE - 1				&&	 (board[kingY - 2][kingX + 1]->GetName() == knight || board[kingY - 2][kingX - 1]->GetName() == knight)))
+	if (kingX < SIDE_SIZE - 2) //right
 	{
-		return true;
+		if (kingY < SIDE_SIZE - 1 && board[kingY + 1][kingX + 2]->GetName() == knight) //right up
+		{
+			return true;
+		}
+		if (kingY > 0 && board[kingY - 1][kingX + 2]->GetName() == knight) //right down
+		{
+			return true;
+		}
+	}
+	if (kingX >= 2) //left
+	{
+		if (kingY < SIDE_SIZE - 1 && board[kingY + 1][kingX - 2]->GetName() == knight) //left up
+		{
+			return true;
+		}
+		if (kingY > 0 && board[kingY - 1][kingX - 2]->GetName() == knight) //left down
+		{
+			return true;
+		}
+	}
+	if (kingY < SIDE_SIZE - 2) //up
+	{
+		if (kingX < SIDE_SIZE - 1 && board[kingY + 2][kingX + 1]->GetName() == knight) //up right
+		{
+			return true;
+		}
+		if (kingX > 0 && board[kingY + 2][kingX - 1]->GetName() == knight) //up left
+		{
+			return true;
+		}
+	}
+	if (kingY >= 2) //down
+	{
+		if (kingX < SIDE_SIZE - 1 && board[kingY - 2][kingX + 1]->GetName() == knight) //down right
+		{
+			return true;
+		}
+		if (kingX > 0 && board[kingY - 2][kingX - 1]->GetName() == knight) //down left
+		{
+			return true;
+		}
 	}
 	return false;
 }
