@@ -67,6 +67,11 @@ void main()
 			}
 			else
 			{
+				if (game.getBoard()[srcY][srcX]->GetName() == 'P' || game.getBoard()[srcY][srcX]->GetName() == 'p')
+				{
+					Pawn* pawn = (Pawn*)game.getBoard()[srcY][srcX];
+					pawn->SetMoved();
+				}
 				game.getBoard()[srcY][srcX]->MovePlace(dstX, dstY, srcX, srcY, game.getBoard());
 				game.nullPtrReplce();
 				game.changeTurn();
