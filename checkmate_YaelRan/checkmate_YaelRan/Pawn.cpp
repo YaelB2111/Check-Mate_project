@@ -62,7 +62,6 @@ bool Pawn::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 			result = INVALID_MOVE;
 			return legal;
 		}
-		this->_moved = true;
 	}
 	else if (!(abs(destY - srcY) == 1 && abs(destX - srcX) <= 1)) // pawn can move 1 up and max 1 to side 
 	{
