@@ -105,7 +105,7 @@ bool Rook::IsLegalForward(const int destY, const int srcX, const int srcY, const
 	int i = 0;
 	bool legal = true;
 
-	for (i = srcY; i < destY && !legal; i++)
+	for (i = srcY + 1; i < destY && legal; i++)
 	{
 		if (board[i][srcX]->GetName() != '#')
 		{
@@ -119,7 +119,7 @@ bool Rook::IsLegalBackward(const int destY, const int srcX, const int srcY, cons
 	int i = 0;
 	bool legal = true;
 	
-	for (i = srcY; i > destY && !legal; i--)
+	for (i = srcY - 1; i > destY && legal; i--)
 	{
 		if (board[i][srcX]->GetName() != '#')
 		{
@@ -134,7 +134,7 @@ bool Rook::IsLegalRight(const int destX, const int srcX, const int srcY, const P
 	int i = 0;
 	bool legal = true;
 
-	for (i = srcX; i < destX && !legal; i++)
+	for (i = srcX + 1; i < destX && legal; i++)
 	{
 		if (board[srcY][i]->GetName() != '#')
 		{
@@ -148,7 +148,7 @@ bool Rook::IsLegalLeft(const int destX, const int srcX, const int srcY, const Pi
 	int i = 0;
 	bool legal = true;
 
-	for (i = srcX; i > destX && !legal; i--)
+	for (i = srcX - 1; i > destX && legal; i--)
 	{
 		if (board[srcY][i]->GetName() != '#')
 		{
