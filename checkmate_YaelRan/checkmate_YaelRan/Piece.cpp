@@ -35,11 +35,11 @@ bool Piece::IsSelfCheck(const int srcX, const int srcY, const Piece** board[], c
 
 	int i = 0, rows = SIZE, j = 0 , cols = SIZE, result = 0;
 	bool selfCheck = false;
-	char lettterToFind = 'K';
+	char lettterToFind = 'k';
 	
 	if (whitePlays)
 	{
-		lettterToFind = 'k'; // to lower
+		lettterToFind = 'K'; // to upper for white
 	}
 
 	//find king
