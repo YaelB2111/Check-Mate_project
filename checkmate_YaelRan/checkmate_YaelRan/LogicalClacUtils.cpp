@@ -18,6 +18,8 @@ void LogicalClac::findKingCordinates(int& kingX, int& kingY, const char checkedK
 	}
 }
 
+
+
 bool LogicalClac::isPawnCheck(const int kingX, const int kingY, const bool whosTurn, Piece*** board)
 {
 	//pawn check
@@ -34,6 +36,50 @@ bool LogicalClac::isPawnCheck(const int kingX, const int kingY, const bool whosT
 		{
 			return true;
 		}
+	}
+	return false;
+}
+
+bool LogicalClac::isKingCheck(const int kingX, const int kingY, const char king, Piece*** board)
+{
+	bool rightCheck = kingX < SIDE_SIZE - 1, leftCheck = kingX > 0, upCheck = kingY < SIDE_SIZE - 1, downCheck = kingY > 0;
+	if (upCheck) //up
+	{
+		if (board[kingY + 1][kingX]->GetName() == king)
+		{
+			return true;
+		}
+		if (rightCheck && board[kingY + 1][kingX + 1]->GetName() == king) //up right
+		{
+			return true;
+		}
+		if (leftCheck && board[kingY + 1][kingX - 1]->GetName() == king) //up left
+		{
+			return true;
+		}
+	}
+	if (downCheck) //down
+	{
+		if (board[kingY - 1][kingX]->GetName() == king)
+		{
+			return true;
+		}
+		if (rightCheck && board[kingY - 1][kingX + 1]->GetName() == king) //down right
+		{
+			return true;
+		}
+		if (leftCheck && board[kingY - 1][kingX - 1]->GetName() == king) //down left
+		{
+			return true;
+		}
+	}
+	if (rightCheck && board[kingY][kingX + 1]->GetName() == king) //right
+	{
+		return true;
+	}
+	if (leftCheck && board[kingY][kingX - 1]->GetName() == king) //left
+	{
+		return true;
 	}
 	return false;
 }
