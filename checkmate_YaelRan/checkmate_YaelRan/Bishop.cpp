@@ -36,12 +36,6 @@ bool Bishop::IsMoveLegal(const int destX, const int destY, const int srcX, const
 		return legal;
 	}
 
-	if (move && IsSelfCheck(srcX, srcY, board, whitePlays)) // self check
-	{
-		result = SELF_CHECK;
-		return legal;
-	}
-
 	if (destX >= boardSize || srcX >= boardSize || destY >= boardSize || srcY >= boardSize) // dest out of board
 	{
 		result = OUT_OF_BOUND;
@@ -89,11 +83,6 @@ bool Bishop::IsMoveLegal(const int destX, const int destY, const int srcX, const
 
 	whitePlays = !whitePlays;
 	legal = true;
-	if (IsSelfCheck(srcX, srcY, board, whitePlays)) // check if move made check on other player
-	{
-		result = TO_CHECK_MOVE;
-		return legal;
-	}
 
 
 	result = VALID_MOVE;

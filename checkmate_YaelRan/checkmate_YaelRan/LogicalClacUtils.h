@@ -19,7 +19,6 @@ public:
 	static bool isCastling(const int srcX, const int srcY, const int dstX, const int dstY, Piece*** board);
 	static void castling(const int srcX, const int srcY, const int dstX, const int dstY, Piece*** board);
 	static void printBoard(Piece*** board);
-	static void simulateMove(const int srcX, const int srcY, const int dstX, const int dstY, Piece*** board);
 	static bool checkCheck(int srcX, int srcY, int dstX, int dstY, bool whitePlays, bool selfCheck, Piece*** board);
 	static bool mateCheck(int kingX, int kingY, bool whitePlays, Piece*** board);
 };

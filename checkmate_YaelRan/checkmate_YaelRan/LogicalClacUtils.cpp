@@ -280,26 +280,20 @@ void LogicalClac::printBoard(Piece*** board)
 		std::cout << "|  ";
 		for (j = 0; j < SIDE_SIZE; j++)
 		{
+			if (board[i][j]->GetName() == '#')
+			{
+				std::cout << " " << "  |  ";
+			}
+			else
+			{
 				std::cout << board[i][j]->GetName() << "  |  ";
+			}
 		}           
 		std::cout << "\n+-----+-----+-----+-----+-----+-----+-----+-----+\n";
 		//std::cout << "|                                             |" << std::endl;
 	}
 }
 
-void LogicalClac::simulateMove(const int srcX, const int srcY, const int dstX, const int dstY, Piece*** board)
-{
-	bool checkResult = false;
-	Piece* scrPiece = board[srcY][srcX];
-	Piece* dstPiece = board[dstY][dstX];
-
-	board[srcY][srcX] = new NullPiece();
-	board[dstY][dstX] = scrPiece;
-
-	free(board[srcY][srcX]);
-	board[srcY][srcX] = scrPiece;
-	board[dstY][dstX] = dstPiece;
-}
 
 bool LogicalClac::checkCheck(int srcX, int srcY, int dstX, int dstY, bool whitePlays, bool selfCheck, Piece*** board)
 {

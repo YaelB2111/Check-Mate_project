@@ -37,12 +37,6 @@ bool King::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 		return legal;
 	}
 
-	if (move && IsSelfCheck(srcX, srcY, board, whitePlays))//self check
-	{
-		result = SELF_CHECK;
-		return legal;
-	}
-
 	if (destX >= boardSize || srcX >= boardSize || destY >= boardSize || srcY >= boardSize)//out of board
 	{
 		result = OUT_OF_BOUND;
