@@ -114,77 +114,13 @@ std::string Game::boardState() const
 
 bool Game::isCheck(int srcX, int srcY, int dstX, int dstY, bool selfCheck)
 {
-	char checkedKing = !this->_playsTurn ? 'k' : 'K', knight = this->_playsTurn ? 'n' : 'N', queen = this->_playsTurn ? 'q' : 'Q',
-	rook = this->_playsTurn ? 'r' : 'R', bishop = this->_playsTurn ? 'b' : 'B', pawn = this->_playsTurn ? 'p' : 'P'; //change the true/false upper/lower to match the turn if needed
-	
-	int i = 0, j = 0, kingX = 0, kingY = 0;
-    Piece* scrPiece = this->_pieces[srcY][srcX];
-    Piece* dstPiece = this->_pieces[dstY][dstX];
+    return LogicalClac::checkCheck(srcX, srcY, dstX, dstY, this->getWhosTurn(), selfCheck, this->getBoard());
+}
 
-    if (selfCheck)
-    {
-        this->_pieces[srcY][srcX] = new NullPiece();
-        this->_pieces[dstY][dstX] = scrPiece;
-    }
-   
-	
-	LogicalClac::findKingCordinates(kingX, kingY, checkedKing, this->_pieces); //find the cordinates of the prefered king
-	
-	//pawn check (check 2 possible check positions, and make sure no index out of range occures)
-	if (LogicalClac::isPawnCheck(kingX, kingY, this->_playsTurn, this->_pieces)) 
-	{
-        if (selfCheck)
-        {
-            free(this->_pieces[srcY][srcX]);
-            this->_pieces[srcY][srcX] = scrPiece;
-            this->_pieces[dstY][dstX] = dstPiece;
-        }
-        return true;
-	}
-
-    //king check (8 possible checks)
-    if (LogicalClac::isKingCheck(kingX, kingY, this->_playsTurn ? 'k' : 'K', this->_pieces)) //!this->_playsTurn ? 'k' : 'K' ---> opposite king
-    {
-        if (selfCheck)
-        {
-            free(this->_pieces[srcY][srcX]);
-            this->_pieces[srcY][srcX] = scrPiece;
-            this->_pieces[dstY][dstX] = dstPiece;
-        }
-        return true;
-    }
-
-	//knightCheck - checks all the 8 possible knight check positions, (and make sure no index out of range occures) 
-	if (LogicalClac::isKnightnCheck(kingX, kingY, knight, this->_pieces))
-	{
-        if (selfCheck)
-        {
-            free(this->_pieces[srcY][srcX]);
-            this->_pieces[srcY][srcX] = scrPiece;
-            this->_pieces[dstY][dstX] = dstPiece;
-        }
-        return true;
-	}
-	
-	//knightCheck - checks all the 8 possible stright/diagnle check positions, (and make sure no index out of range occures) 
-	if (LogicalClac::isStrightDiagnleCheck(kingX, kingY, queen, rook, bishop, this->_pieces))
-	{
-        if (selfCheck)
-        {
-            free(this->_pieces[srcY][srcX]);
-            this->_pieces[srcY][srcX] = scrPiece;
-            this->_pieces[dstY][dstX] = dstPiece;
-        }
-		return true;
-	}
-
-    if (selfCheck)
-    {
-        free(this->_pieces[srcY][srcX]);
-        this->_pieces[srcY][srcX] = scrPiece;
-        this->_pieces[dstY][dstX] = dstPiece;
-    }
-	return false;
+bool Game::isMate(bool whitePlays)
+{
+    int kingX = 0, kingY = 0;
+    return LogicalClac::mateCheck(kingX, kingY, whitePlays, this->getBoard());
 }
 
 Piece*** Game::getBoard() const

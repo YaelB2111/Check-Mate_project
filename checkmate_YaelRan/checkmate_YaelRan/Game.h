@@ -20,6 +20,7 @@ public:
 	void TryMove(const int x1, const int y1, const int x2, const int y2);
 	std::string boardState() const;
 	bool isCheck(int srcX, int srcY, int dstX, int dstY, bool selfCheck);
+	bool isMate(bool whitePlays);
 	Piece*** getBoard() const;
 	bool getWhosTurn() const;
 	void changeTurn();

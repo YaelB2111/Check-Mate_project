@@ -12,7 +12,7 @@
 #define OUT_OF_BOUND 5
 #define INVALID_MOVE 6
 #define SRC_DST_EQUAL 7
-#define CHECK_MOVE 8
+#define MATE_MOVE 8
 
 
 #define SIZE 8

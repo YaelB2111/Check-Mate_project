@@ -287,6 +287,152 @@ void LogicalClac::printBoard(Piece*** board)
 	}
 }
 
+void LogicalClac::simulateMove(const int srcX, const int srcY, const int dstX, const int dstY, Piece*** board)
+{
+	bool checkResult = false;
+	Piece* scrPiece = board[srcY][srcX];
+	Piece* dstPiece = board[dstY][dstX];
+
+	board[srcY][srcX] = new NullPiece();
+	board[dstY][dstX] = scrPiece;
+
+	free(board[srcY][srcX]);
+	board[srcY][srcX] = scrPiece;
+	board[dstY][dstX] = dstPiece;
+}
+
+bool LogicalClac::checkCheck(int srcX, int srcY, int dstX, int dstY, bool whitePlays, bool selfCheck, Piece*** board)
+{
+	char checkedKing = !whitePlays ? 'k' : 'K', knight = whitePlays ? 'n' : 'N', queen = whitePlays ? 'q' : 'Q',
+		rook = whitePlays ? 'r' : 'R', bishop = whitePlays ? 'b' : 'B', pawn = whitePlays ? 'p' : 'P'; //change the true/false upper/lower to match the turn if needed
+
+	int i = 0, j = 0, kingX = 0, kingY = 0;
+	Piece* scrPiece = board[srcY][srcX];
+	Piece* dstPiece = board[dstY][dstX];
+
+	if (selfCheck)
+	{
+		board[srcY][srcX] = new NullPiece();
+		board[dstY][dstX] = scrPiece;
+	}
+
+
+	LogicalClac::findKingCordinates(kingX, kingY, checkedKing, board); //find the cordinates of the prefered king
+
+	//pawn check (check 2 possible check positions, and make sure no index out of range occures)
+	if (LogicalClac::isPawnCheck(kingX, kingY, whitePlays, board))
+	{
+		if (selfCheck)
+		{
+			free(board[srcY][srcX]);
+			board[srcY][srcX] = scrPiece;
+			board[dstY][dstX] = dstPiece;
+		}
+		return true;
+	}
+
+	//king check (8 possible checks)
+	if (LogicalClac::isKingCheck(kingX, kingY, whitePlays ? 'k' : 'K', board)) //!this->_playsTurn ? 'k' : 'K' ---> opposite king
+	{
+		if (selfCheck)
+		{
+			free(board[srcY][srcX]);
+			board[srcY][srcX] = scrPiece;
+			board[dstY][dstX] = dstPiece;
+		}
+		return true;
+	}
+
+	//knightCheck - checks all the 8 possible knight check positions, (and make sure no index out of range occures) 
+	if (LogicalClac::isKnightnCheck(kingX, kingY, knight, board))
+	{
+		if (selfCheck)
+		{
+			free(board[srcY][srcX]);
+			board[srcY][srcX] = scrPiece;
+			board[dstY][dstX] = dstPiece;
+		}
+		return true;
+	}
+
+	//knightCheck - checks all the 8 possible stright/diagnle check positions, (and make sure no index out of range occures) 
+	if (LogicalClac::isStrightDiagnleCheck(kingX, kingY, queen, rook, bishop, board))
+	{
+		if (selfCheck)
+		{
+			free(board[srcY][srcX]);
+			board[srcY][srcX] = scrPiece;
+			board[dstY][dstX] = dstPiece;
+		}
+		return true;
+	}
+
+	if (selfCheck)
+	{
+		free(board[srcY][srcX]);
+		board[srcY][srcX] = scrPiece;
+		board[dstY][dstX] = dstPiece;
+	}
+	return false;
+}
+
+bool LogicalClac::mateCheck(int kingX, int kingY, const bool whitePlays, Piece*** board)
+{
+	Piece* temp = nullptr;
+	char king = whitePlays ? 'K' : 'k';
+	LogicalClac::findKingCordinates(kingX, kingY, king, board);
+	bool rightCheck = kingX < SIDE_SIZE - 1, leftCheck = kingX > 0, upCheck = kingY < SIDE_SIZE - 1, downCheck = kingY > 0;
+	int result = 0;
+	if (upCheck) //up
+	{
+		if (board[kingY][kingX]->IsMoveLegal(kingX, kingY + 1, kingX, kingY, (const Piece***)board, result, whitePlays, true) &&
+			!checkCheck(kingX, kingY, kingX, kingY + 1, whitePlays, true, board))
+		{
+			return false;
+		}
+		if (rightCheck && board[kingY][kingX]->IsMoveLegal(kingX + 1, kingY + 1, kingX, kingY, (const Piece***)board, result, whitePlays, true) &&
+			!checkCheck(kingX, kingY, kingX + 1, kingY + 1, whitePlays, true, board)) //up right
+		{
+			return false;
+		}
+		if (leftCheck && board[kingY][kingX]->IsMoveLegal(kingX - 1, kingY + 1, kingX, kingY, (const Piece***)board, result, whitePlays, true) &&
+			!checkCheck(kingX, kingY, kingX - 1, kingY + 1, whitePlays, true, board)) //up left
+		{
+			return false;
+		}
+	}
+	if (downCheck) //down
+	{
+		if (board[kingY][kingX]->IsMoveLegal(kingX, kingY - 1, kingX, kingY, (const Piece***)board, result, whitePlays, true) &&
+			!checkCheck(kingX, kingY, kingX, kingY - 1, whitePlays, true, board))
+		{
+			return false;
+		}
+		if (rightCheck && board[kingY][kingX]->IsMoveLegal(kingX + 1, kingY - 1, kingX, kingY, (const Piece***)board, result, whitePlays, true) &&
+			!checkCheck(kingX, kingY, kingX + 1, kingY - 1, whitePlays, true, board)) //down right
+		{
+			return false;
+		}
+		if (leftCheck && board[kingY][kingX]->IsMoveLegal(kingX - 1, kingY - 1, kingX, kingY, (const Piece***)board, result, whitePlays, true) &&
+			!checkCheck(kingX, kingY, kingX - 1, kingY - 1, whitePlays, true, board)) //down left
+		{
+			return false;
+		}
+	}
+	if (rightCheck && board[kingY][kingX]->IsMoveLegal(kingX+1, kingY, kingX, kingY, (const Piece***)board, result, whitePlays, true) &&
+		!checkCheck(kingX, kingY, kingX + 1, kingY, whitePlays, true, board)) //right
+	{
+		return false;
+	}
+	if (leftCheck && board[kingY][kingX]->IsMoveLegal(kingX-1, kingY, kingX, kingY, (const Piece***)board, result, whitePlays, true) &&
+		!checkCheck(kingX, kingY, kingX - 1, kingY, whitePlays, true, board)) //left
+	{
+		return false;
+	}
+	return true;
+}
+
+
 bool LogicalClac::isCastling(const int srcX, const int srcY, const int dstX, const int dstY, Piece*** board)
 {
 	if ((board[srcY][srcX]->GetName() == 'K' && board[dstY][dstX]->GetName() == 'R' ||

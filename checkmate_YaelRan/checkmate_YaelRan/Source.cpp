@@ -93,6 +93,10 @@ void main()
 				if (game.isCheck(srcX, srcY, dstX, dstY, false)) //checking if check is occuring
 				{
 					resultCode = TO_CHECK_MOVE;
+					if (game.isMate(game.getWhosTurn()))
+					{
+						resultCode = MATE_MOVE;
+					}
 				}
 			}
 		}
