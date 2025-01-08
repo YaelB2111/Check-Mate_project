@@ -142,6 +142,18 @@ bool Game::isCheck(int srcX, int srcY, int dstX, int dstY, bool selfCheck)
         return true;
 	}
 
+    //king check (8 possible checks)
+    if (LogicalClac::isKingCheck(kingX, kingY, this->_playsTurn ? 'k' : 'K', this->_pieces)) //!this->_playsTurn ? 'k' : 'K' ---> opposite king
+    {
+        if (selfCheck)
+        {
+            free(this->_pieces[srcY][srcX]);
+            this->_pieces[srcY][srcX] = scrPiece;
+            this->_pieces[dstY][dstX] = dstPiece;
+        }
+        return true;
+    }
+
 	//knightCheck - checks all the 8 possible knight check positions, (and make sure no index out of range occures) 
 	if (LogicalClac::isKnightnCheck(kingX, kingY, knight, this->_pieces))
 	{
