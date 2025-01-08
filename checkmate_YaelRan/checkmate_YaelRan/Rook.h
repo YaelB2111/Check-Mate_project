@@ -15,6 +15,7 @@ public:
 	bool IsLegalRight(const int destX, const int srcX, const int srcY, const Piece*** board);
 	bool IsLegalLeft(const int destX, const int srcX, const int srcY, const Piece*** board);
 	void SetMoved();
+	bool GetMoved();
 
 private:
 	bool _moved;

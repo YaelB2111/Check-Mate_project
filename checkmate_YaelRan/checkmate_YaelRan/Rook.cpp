@@ -157,3 +157,13 @@ bool Rook::IsLegalLeft(const int destX, const int srcX, const int srcY, const Pi
 	}
 	return legal;
 }
+
+void Rook::SetMoved()
+{
+	this->_moved = true;
+}
+
+bool Rook::GetMoved()
+{
+	return this->_moved;
+}

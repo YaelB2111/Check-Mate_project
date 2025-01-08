@@ -92,11 +92,11 @@ bool Pawn::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 	
 	whitePlays = !whitePlays;
 	legal = true;
-	/*if (IsSelfCheck(srcX, srcY, board, whitePlays))
+	if (move && IsSelfCheck(srcX, srcY, board, whitePlays))
 	{
 		result = TO_CHECK_MOVE;
 		return legal;
-	}*/
+	}
 
 
 	result = VALID_MOVE;

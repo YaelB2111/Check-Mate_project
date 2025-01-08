@@ -69,3 +69,13 @@ bool King::IsMoveLegal(const int destX, const int destY, const int srcX, const i
 	result = VALID_MOVE;
 	return legal;
 }
+
+void King::SetMoved()
+{
+	this->_moved = true;
+}
+
+bool King::GetMoved()
+{
+	return this->_moved;
+}
