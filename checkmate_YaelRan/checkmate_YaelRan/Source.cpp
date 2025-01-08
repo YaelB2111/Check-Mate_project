@@ -63,6 +63,7 @@ void main()
 		{
 			LogicalClac::castling(srcX, srcY, dstX, dstY, game.getBoard());
 			resultCode = VALID_MOVE;
+			game.changeTurn();
 		}
 		else if (game.getBoard()[srcY][srcX]->IsMoveLegal(dstX, dstY, srcX, srcY, (const Piece***)game.getBoard(), resultCode, game.getWhosTurn(), true))
 		{

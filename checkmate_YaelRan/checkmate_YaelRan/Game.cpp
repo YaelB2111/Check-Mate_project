@@ -70,13 +70,13 @@ Game::Game(std::string board) : _side(SIDE_SIZE), _playsTurn(true)
 
 Game::~Game() //fix
 {
-	int i = 0;
-	for (i = 0; i < SIDE_SIZE * SIDE_SIZE; i++)
+	int i = 0, j = 0;
+	for (i = 0; i < SIDE_SIZE; i++)
 	{
-		if (*(this->_pieces + i) != nullptr)
-		{
-			delete *(this->_pieces + i);
-		}
+        for (j = 0; j < SIDE_SIZE; j++)
+        {
+            delete this->_pieces[i][j];
+        }
 	}
 	if (this->_pieces != nullptr)
 	{
