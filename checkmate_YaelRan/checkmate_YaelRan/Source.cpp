@@ -59,7 +59,12 @@ void main()
 	while (msgFromGraphics != "quit")
 	{
 		LogicalClac::convertMsgToCordinates(msgFromGraphics, srcX, srcY, dstX, dstY);
-		if (game.getBoard()[srcY][srcX]->IsMoveLegal(dstX, dstY, srcX, srcY, (const Piece***)game.getBoard(), resultCode, game.getWhosTurn(), true))
+		if (LogicalClac::isCastling(srcX, srcY, dstX, dstY, game.getBoard()))
+		{
+			LogicalClac::castling(srcX, srcY, dstX, dstY, game.getBoard());
+			resultCode = VALID_MOVE;
+		}
+		else if (game.getBoard()[srcY][srcX]->IsMoveLegal(dstX, dstY, srcX, srcY, (const Piece***)game.getBoard(), resultCode, game.getWhosTurn(), true))
 		{
 			if (game.isCheck(srcX, srcY, dstX, dstY, true))
 			{
@@ -72,6 +77,16 @@ void main()
 					Pawn* pawn = (Pawn*)game.getBoard()[srcY][srcX];
 					pawn->SetMoved();
 				}
+				else if (game.getBoard()[srcY][srcX]->GetName() == 'K' || game.getBoard()[srcY][srcX]->GetName() == 'k')
+				{
+					King* king = (King*)game.getBoard()[srcY][srcX];
+					king->SetMoved();
+				}
+				else if (game.getBoard()[srcY][srcX]->GetName() == 'R' || game.getBoard()[srcY][srcX]->GetName() == 'r')
+				{
+					Rook* rook = (Rook*)game.getBoard()[srcY][srcX];
+					rook->SetMoved();
+				}
 				game.getBoard()[srcY][srcX]->MovePlace(dstX, dstY, srcX, srcY, game.getBoard());
 				game.nullPtrReplce();
 				game.changeTurn();
@@ -81,7 +96,7 @@ void main()
 				}
 			}
 		}
-		
+		LogicalClac::printBoard(game.getBoard());
 		strcpy_s(msgToGraphics, to_string(resultCode).c_str()); // msgToGraphics should contain the result of the operation
 
 		// return result to graphics		

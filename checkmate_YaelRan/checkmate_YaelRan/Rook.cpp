@@ -1,6 +1,6 @@
 #include "Rook.h"
 
-Rook::Rook(char name) : Piece(name)
+Rook::Rook(char name) : Piece(name), _moved(false)
 {
 }
 

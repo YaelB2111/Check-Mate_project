@@ -246,3 +246,59 @@ void LogicalClac::replaceNullWithNullObj(Piece*** board)
 		}
 	}
 }
+
+void LogicalClac::castling(const int srcX, const int srcY, const int dstX, const int dstY, Piece*** board)
+{
+	Piece* temp = nullptr;
+	if (dstX == 0)
+	{
+		temp = board[srcY][srcX]; //King
+		board[srcY][srcX] = board[srcY][0];
+		board[srcY][3] = temp;
+		temp = board[dstY][dstX]; //Rook
+		board[dstY][dstX] = board[srcY][1];
+		board[srcY][4] = temp;
+	}
+	else
+	{
+		temp = board[srcY][srcX]; //King
+		board[srcY][srcX] = board[srcY][6];
+		board[srcY][6] = temp;
+		temp = board[dstY][dstX]; //Rook
+		board[dstY][dstX] = board[srcY][5];
+		board[srcY][5] = temp;
+	}
+}
+
+void LogicalClac::printBoard(Piece*** board)
+{
+	int i = 0, j = 0;
+	system("CLS");
+	std::cout << "+-----+-----+-----+-----+-----+-----+-----+-----+" << std::endl;
+	for (i = 7; i >= 0; i--)
+	{
+		std::cout << "|  ";
+		for (j = 0; j < SIDE_SIZE; j++)
+		{
+				std::cout << board[i][j]->GetName() << "  |  ";
+		}           
+		std::cout << "\n+-----+-----+-----+-----+-----+-----+-----+-----+\n";
+		//std::cout << "|                                             |" << std::endl;
+	}
+}
+
+bool LogicalClac::isCastling(const int srcX, const int srcY, const int dstX, const int dstY, Piece*** board)
+{
+	if ((board[srcY][srcX]->GetName() == 'K' && board[dstY][dstX]->GetName() == 'R' ||
+		 board[srcY][srcX]->GetName() == 'k' && board[dstY][dstX]->GetName() == 'r'))
+	{
+		Rook* rook = (Rook*)board[dstY][dstX];
+		King* king = (King*)board[srcY][srcX];
+		if (!rook->GetMoved() && !king->GetMoved())
+		{
+			return true;
+		}
+	}
+	return false;
+}
+

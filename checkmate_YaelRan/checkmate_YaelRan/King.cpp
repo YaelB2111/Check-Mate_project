@@ -1,6 +1,6 @@
 #include "King.h"
 
-King::King(char name) : Piece (name)
+King::King(char name) : Piece (name), _moved(false)
 {
 }
 
